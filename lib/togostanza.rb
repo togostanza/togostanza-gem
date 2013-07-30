@@ -1,5 +1,6 @@
 require 'togostanza/version'
 
 module TogoStanza
-  # Your code goes here...
+  autoload :CLI,    'togostanza/cli'
+  autoload :Server, 'togostanza/server'
 end

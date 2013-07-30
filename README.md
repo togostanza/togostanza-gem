@@ -6,7 +6,7 @@ TODO: Write a gem description
 
 Add this line to your application's Gemfile:
 
-    gem 'togostanza'
+    gem 'togostanza-server'
 
 And then execute:
 
@@ -14,7 +14,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install togostanza
+    $ gem install togostanza-server
 
 ## Usage
 

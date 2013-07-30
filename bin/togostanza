@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'togostanza'
+
+TogoStanza::CLI::Root.start
