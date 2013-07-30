@@ -1,0 +1,8 @@
+language: ruby
+rvm: 2.0.0
+bundler_args: --without production
+script: rspec
+
+notifications:
+  webhooks:
+    - https://idobata.io/hook/047eeb76-6f1f-4fc2-82f8-f8abceacd51e
