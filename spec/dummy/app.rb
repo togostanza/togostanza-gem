@@ -1,5 +1,7 @@
 require 'togostanza-server'
 
 class DummyApp < TogoStanza::Application
-  set :root, __dir__
 end
+
+require_relative 'stanza/foo_stanza'
+require_relative 'stanza/bar_stanza'

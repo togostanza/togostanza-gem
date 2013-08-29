@@ -18,6 +18,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'activesupport'
+  spec.add_runtime_dependency 'haml'
   spec.add_runtime_dependency 'hashie'
   spec.add_runtime_dependency 'parallel'
   spec.add_runtime_dependency 'sinatra'

@@ -1,0 +1,9 @@
+%h2 List of Stanzas
+
+%ul
+  - TogoStanza::Stanza.all.sort_by(&:id).each do |stanza|
+    %li
+      = stanza.id
+
+      != surround '(', ')' do
+        %a{href: path(stanza.id, :help)} help

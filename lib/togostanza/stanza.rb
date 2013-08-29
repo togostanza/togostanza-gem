@@ -1,3 +1,5 @@
+require 'active_support/all'
+
 module TogoStanza::Stanza
   autoload :Base, 'togostanza/stanza/base'
 
