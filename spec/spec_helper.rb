@@ -1,6 +1,6 @@
 ENV['RACK_ENV'] ||= 'test'
 
-require_relative 'dummy/server'
+require_relative 'dummy/app'
 require 'capybara'
 
 RSpec.configure do |config|
@@ -13,4 +13,4 @@ RSpec.configure do |config|
   config.include Capybara::DSL
 end
 
-Capybara.app = DummyServer
+Capybara.app = DummyApp

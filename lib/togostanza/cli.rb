@@ -6,7 +6,7 @@ module TogoStanza
     class Root < Thor
       desc 'server', 'Launch app server'
       def server
-        TogoStanza::Server.run!
+        TogoStanza::Application.run!
       end
     end
   end
