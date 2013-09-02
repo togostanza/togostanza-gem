@@ -1,0 +1,113 @@
+@charset "UTF-8";
+
+body {
+	background-color: transparent;
+	padding: 1px 2px 3px;
+	font-family: "Myriad Pro","Helvetica Neue",san-serif;
+	font-size: 16px;
+	line-height: 20px;
+}
+a {
+	color:#45b8cc;
+}
+
+ul, ol {
+	padding:0;
+	margin:0 0 0 16px;
+}
+dl {
+	margin: 0;
+	padding: 0;
+}
+dd {
+	margin: 0;
+}
+dt + dt, dd + dt,
+dt + dd, dd + dd {
+	margin-top: 8px;
+}
+
+
+body > .table, body > div {
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-shadow: 0 2px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 2px 2px rgba(0,0,0,.2);
+	box-shadow: 0 2px 2px rgba(0,0,0,.2);
+	background-color: #fff;
+}
+body > .table + .table, body > .table + div,
+body > div + .table, body > div + div {
+	margin-top: 5px;
+}
+
+body > div {
+	padding: 10px 20px;
+}
+
+body > .table {
+	border-style: solid;
+	border-color: rgba(0,0,0,0);
+	border-top-width: 5px;
+	border-bottom-width: 5px;
+	border-left-width: 0;
+	border-right-width: 0;
+}
+.table {
+	margin-bottom: 0;
+	word-break:break-all;
+}
+.table caption {
+	background-color: #8ac8d1;
+	text-align: left;
+	color: white;
+	font-size: 18px;
+	line-height: 22px;
+	height: 22px;
+	font-weight: bold;
+	padding: 10px 24px 4px;
+	margin: 0;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+}
+.table tr:before, .table tr:after {
+	content: "";
+	display: table-cell;
+	width: 20px;
+}
+.table thead th, .table thead td {
+	border-bottom: 1px solid #555;
+}
+.table th, .table td,
+.table > tbody > th, .table > tbody > td {
+	padding: 10px 4px;
+	line-height: 20px;
+	text-align: left;
+	vertical-align: top;
+	border-top: 1px solid #9fadad;
+}
+.table > tr:first-child > th, .table > tr:first-child > td,
+.table > tbody > tr:first-child > th, .table > tbody > tr:first-child > td {
+	border-top: none;
+}
+th > .table, td > .table {
+	margin: -10px -4px;
+	width: 100%;
+}
+th > .table > tbody > tr:before,
+td > .table > tbody > tr:before,
+th > .table > tbody > tr:after,
+td > .table > tbody > tr:after {
+	content: none;
+}
+.table li + li {
+	margin-top: 4px;
+}
+
+pre {
+	background-color:#daf1f5;
+	border:1px solid #ccc;
+	border:1px solid rgba(0,0,0,0.15);
+	padding: 8px 16px;
+}

@@ -1,5 +1,15 @@
 require 'active_support/core_ext/module/delegation'
+require 'flavour_saver'
 require 'hashie/mash'
+
+FS.register_helper :adjust_iframe_height_script do
+  <<-HTML.strip_heredoc.html_safe
+    <script>$(function() {
+      height = this.body.offsetHeight + 30;
+      parent.postMessage(JSON.stringify({height: height, id: name}), "*");
+    });</script>
+  HTML
+end
 
 module TogoStanza::Stanza
   autoload :ExpressionMap, 'togostanza/stanza/expression_map'
@@ -14,7 +24,14 @@ module TogoStanza::Stanza
     define_expression_map :resources
 
     property :css_uri do |css_uri|
-      css_uri || '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.2/css/bootstrap.min.css'
+      if css_uri
+        css_uri.split(',')
+      else
+        %w(
+          //cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.2/css/bootstrap.min.css
+          /stanza/assets/stanza.css
+        )
+      end
     end
 
     class << self
@@ -23,7 +40,7 @@ module TogoStanza::Stanza
       end
 
       def root
-        Stanza.root.join(id)
+        TogoStanza::Stanza.root.join(id)
       end
     end
 
@@ -52,7 +69,7 @@ module TogoStanza::Stanza
     def help
       path = root.join('help.md')
 
-      Markdown.render(path.read)
+      TogoStanza::Markdown.render(path.read)
     end
   end
 end

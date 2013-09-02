@@ -18,11 +18,14 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'activesupport'
+  spec.add_runtime_dependency 'flavour_saver'
   spec.add_runtime_dependency 'haml'
   spec.add_runtime_dependency 'hashie'
   spec.add_runtime_dependency 'parallel'
+  spec.add_runtime_dependency 'redcarpet'
   spec.add_runtime_dependency 'sinatra'
   spec.add_runtime_dependency 'sinatra-contrib'
+  spec.add_runtime_dependency 'sparql-client'
   spec.add_runtime_dependency 'thor'
 
   spec.add_development_dependency 'appraisal'
