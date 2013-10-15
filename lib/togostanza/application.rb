@@ -32,7 +32,9 @@ module TogoStanza
     end
 
     get '/:id/help' do |id|
-      Stanza.find(id).new.help
+      @stanza = Stanza.find(id).new
+
+      render :html, @stanza.help, layout_engine: :haml
     end
   end
 end

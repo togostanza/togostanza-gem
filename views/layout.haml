@@ -1,0 +1,12 @@
+!!!
+
+%html
+  %head
+    %meta(charset='utf-8')
+    %title #{@stanza.id.titleize} Help
+    %link(rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.2/css/bootstrap.min.css')
+    %link(rel='stylesheet' href='/stanza/assets/stanza.css')
+    %script(src='/stanza/assets/stanza.js')
+
+  %body
+    .container!~ yield
