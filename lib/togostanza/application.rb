@@ -28,7 +28,10 @@ module TogoStanza
     end
 
     get '/:id/resources/:resource_id' do |id, resource_id|
-      Stanza.find(id).new(params).resource(resource_id)
+      content_type :json
+
+      value = Stanza.find(id).new(params).resource(resource_id)
+      {resource_id => value}.to_json
     end
 
     get '/:id/help' do |id|
