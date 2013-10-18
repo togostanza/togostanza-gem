@@ -1,4 +1,4 @@
-require 'togostanza-server'
+require 'togostanza'
 
 class DummyApp < TogoStanza::Application
 end
