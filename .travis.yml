@@ -1,5 +1,5 @@
 language: ruby
-bundler_args: --without production
+cache: bundler
 
 rvm:
   - 1.9.3
@@ -9,6 +9,7 @@ gemfile:
   - gemfiles/activesupport_3.x.gemfile
   - gemfiles/activesupport_4.x.gemfile
 
+bundler_args: --without production
+
 notifications:
-  webhooks:
-    - https://idobata.io/hook/047eeb76-6f1f-4fc2-82f8-f8abceacd51e
+  webhooks: https://idobata.io/hook/047eeb76-6f1f-4fc2-82f8-f8abceacd51e
