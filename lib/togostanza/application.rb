@@ -4,7 +4,7 @@ require 'haml'
 
 module TogoStanza
   class Application < Sinatra::Base
-    set :root, File.expand_path('../..', __dir__)
+    set :root, File.expand_path('../../..', __FILE__)
     set :haml, escape_html: true
 
     configure :development do
