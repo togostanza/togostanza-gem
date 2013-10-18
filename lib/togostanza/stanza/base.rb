@@ -36,7 +36,7 @@ module TogoStanza::Stanza
 
     class << self
       def id
-        name.underscore.sub(/_stanza$/, '')
+        to_s.underscore.sub(/_stanza$/, '')
       end
 
       def root
