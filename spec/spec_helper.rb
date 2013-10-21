@@ -1,6 +1,7 @@
 ENV['RACK_ENV'] ||= 'test'
 
 require_relative 'dummy/app'
+
 require 'capybara'
 
 RSpec.configure do |config|

@@ -34,17 +34,13 @@ module TogoStanza::Stanza
       end
     end
 
-    class << self
-      def id
-        to_s.underscore.sub(/_stanza$/, '')
-      end
+    class_attribute :root
 
-      def root
-        TogoStanza::Stanza.root.join(id)
-      end
+    def self.id
+      to_s.underscore.sub(/_stanza$/, '')
     end
 
-    delegate :id, :root, to: 'self.class'
+    delegate :id, to: 'self.class'
 
     def initialize(params = {})
       @params = params
@@ -61,15 +57,15 @@ module TogoStanza::Stanza
     end
 
     def render
-      path = root.join('template.hbs')
+      path = File.join(root, 'template.hbs')
 
-      Tilt.new(path.to_s).render(context)
+      Tilt.new(path).render(context)
     end
 
     def help
-      path = root.join('help.md')
+      path = File.join(root, 'help.md')
 
-      TogoStanza::Markdown.render(path.read)
+      TogoStanza::Markdown.render(File.read(path))
     end
   end
 end

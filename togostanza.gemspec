@@ -3,7 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'togostanza/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'togostanza-server'
+  spec.name          = 'togostanza'
   spec.version       = TogoStanza::VERSION
   spec.authors       = ['Keita Urashima']
   spec.email         = ['ursm@ursm.jp']

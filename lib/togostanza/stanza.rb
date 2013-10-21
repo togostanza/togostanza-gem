@@ -11,15 +11,5 @@ module TogoStanza::Stanza
     def all
       Base.descendants
     end
-
-    def root
-      Pathname(ENV['STANZA_ROOT'] || './stanza').expand_path
-    end
-
-    def load_all!
-      Dir[root.join('*_stanza.rb')].each do |f|
-        require f
-      end
-    end
   end
 end
