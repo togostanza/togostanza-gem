@@ -6,9 +6,8 @@ Gem::Specification.new do |spec|
   spec.name          = 'togostanza'
   spec.version       = TogoStanza::VERSION
   spec.authors       = ['Keita Urashima']
-  spec.email         = ['ursm@ursm.jp']
-  spec.description   = %q{Write a gem description}
-  spec.summary       = %q{Write a gem summary}
+  spec.email         = ['ursm@esm.co.jp']
+  spec.summary       = %q{Development tools of TogoStanza}
   spec.homepage      = ''
   spec.license       = 'MIT'
 
@@ -29,7 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'thor'
 
   spec.add_development_dependency 'appraisal'
-  spec.add_development_dependency 'bundler', '~> 1.3'
+  spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'capybara'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec'

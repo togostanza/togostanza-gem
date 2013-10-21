@@ -16,6 +16,14 @@ module TogoStanza
         template 'Gemfile.erb',   "#{name}/Gemfile"
         template 'config.ru.erb', "#{name}/config.ru"
       end
+
+      def init_repo
+        inside name do
+          run "bundle"
+          run "git init ."
+          run "git add -A"
+        end
+      end
     end
 
     class StanzaGenerator < Thor::Group
