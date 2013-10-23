@@ -25,6 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'sinatra'
   spec.add_runtime_dependency 'sinatra-contrib'
   spec.add_runtime_dependency 'sparql-client'
+  spec.add_runtime_dependency 'sprockets'
   spec.add_runtime_dependency 'thor'
 
   spec.add_development_dependency 'appraisal'
