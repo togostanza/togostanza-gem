@@ -42,6 +42,8 @@ module TogoStanza
         template 'stanza.rb.erb',    "#{file_name}/stanza.rb"
         template 'template.hbs.erb', "#{file_name}/template.hbs"
         template 'help.md.erb',      "#{file_name}/help.md"
+
+        create_file "#{file_name}/assets/.keep"
       end
 
       def inject_gem
