@@ -44,6 +44,7 @@ module TogoStanza
         template 'help.md.erb',      "#{file_name}/help.md"
 
         create_file "#{file_name}/assets/.keep"
+        create_file "#{file_name}/log/.keep"
       end
 
       def inject_gem
