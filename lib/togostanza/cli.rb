@@ -47,7 +47,7 @@ module TogoStanza
       end
 
       def inject_gem
-        append_to_file 'Gemfile', "gem '#{file_name}', path: './#{file_name}'"
+        append_to_file 'Gemfile', "gem '#{file_name}', path: './#{file_name}'\n"
       end
 
       private
