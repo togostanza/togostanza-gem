@@ -1,11 +1,13 @@
 require 'sinatra/base'
+require 'sinatra/json'
 require 'sinatra/reloader'
 require 'haml'
 
 module TogoStanza
   class Application < Sinatra::Base
-    set :root, File.expand_path('../../..', __FILE__)
-    set :haml, escape_html: true
+    set :root,       File.expand_path('../../..', __FILE__)
+    set :haml,       escape_html: true
+    set :protection, except: [:json_csrf]
 
     configure :development do
       register Sinatra::Reloader
@@ -28,10 +30,9 @@ module TogoStanza
     end
 
     get '/:id/resources/:resource_id' do |id, resource_id|
-      content_type :json
-
       value = Stanza.find(id).new(params).resource(resource_id)
-      {resource_id => value}.to_json
+
+      json resource_id => value
     end
 
     get '/:id/help' do |id|
