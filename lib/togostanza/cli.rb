@@ -15,6 +15,8 @@ module TogoStanza
       def create_files
         template 'Gemfile.erb',   "#{name}/Gemfile"
         template 'config.ru.erb', "#{name}/config.ru"
+
+        create_file "#{name}/log/.keep"
       end
 
       def init_repo
@@ -44,7 +46,6 @@ module TogoStanza
         template 'help.md.erb',      "#{file_name}/help.md"
 
         create_file "#{file_name}/assets/.keep"
-        create_file "#{file_name}/log/.keep"
       end
 
       def inject_gem
