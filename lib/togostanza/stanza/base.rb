@@ -15,10 +15,12 @@ module TogoStanza::Stanza
   autoload :ExpressionMap, 'togostanza/stanza/expression_map'
   autoload :Markdown,      'togostanza/stanza/markdown'
   autoload :Querying,      'togostanza/stanza/querying'
+  autoload :Grouping,      'togostanza/stanza/grouping'
 
   class Base
     extend ExpressionMap::Macro
     include Querying
+    include Grouping
 
     define_expression_map :properties
     define_expression_map :resources
