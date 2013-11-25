@@ -7,7 +7,7 @@ module TogoStanza
   class Application < Sinatra::Base
     set :root,       File.expand_path('../../..', __FILE__)
     set :haml,       escape_html: true
-    set :protection, except: [:json_csrf]
+    set :protection, except: [:json_csrf, :frame_options]
 
     configure :development do
       register Sinatra::Reloader
