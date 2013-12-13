@@ -1,6 +1,6 @@
 class FooStanza < TogoStanza::Stanza::Base
-  property :name do
-    'foo'
+  property :name do |name|
+    name || 'foo'
   end
 
   resource :foo_resource do

@@ -25,6 +25,10 @@ module TogoStanza
       haml :index
     end
 
+    get '/:id.json' do |id|
+      json Stanza.find(id).new(params).context
+    end
+
     get '/:id' do |id|
       Stanza.find(id).new(params).render
     end
