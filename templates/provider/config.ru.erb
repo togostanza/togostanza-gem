@@ -12,6 +12,10 @@ end
 
 use Rack::CommonLogger, log
 
+map '/' do
+  run proc { [302, {'Location' => '/stanza'}, []] }
+end
+
 map '/stanza/assets' do
   run TogoStanza.sprockets
 end
