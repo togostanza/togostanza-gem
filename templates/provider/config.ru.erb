@@ -3,7 +3,12 @@ require 'bundler'
 env = ENV['RACK_ENV'] || :development
 Bundler.require :default, env
 
-log = open(File.expand_path("../log/#{env}.log", __FILE__), 'a+').tap {|f| f.sync = true }
+begin
+  log = open(File.expand_path("../log/#{env}.log", __FILE__), 'a+').tap {|f| f.sync = true }
+rescue
+  # Heroku don't allow local file access
+  log = $stdout
+end
 
 use Rack::CommonLogger, log
 

@@ -13,8 +13,10 @@ module TogoStanza
       end
 
       def create_files
-        template 'Gemfile.erb',   "#{name}/Gemfile"
-        template 'config.ru.erb', "#{name}/config.ru"
+        template 'Gemfile.erb',           "#{name}/Gemfile"
+        template 'config.ru.erb',         "#{name}/config.ru"
+        template 'Procfile.erb',          "#{name}/Procfile"
+        template 'config/unicorn.rb.erb', "#{name}/config/unicorn.rb"
 
         create_file "#{name}/log/.keep"
       end
