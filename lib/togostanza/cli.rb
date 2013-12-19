@@ -13,6 +13,7 @@ module TogoStanza
       end
 
       def create_files
+        template 'gitignore.erb',         "#{name}/.gitignore"
         template 'Gemfile.erb',           "#{name}/Gemfile"
         template 'config.ru.erb',         "#{name}/config.ru"
         template 'Procfile.erb',          "#{name}/Procfile"
