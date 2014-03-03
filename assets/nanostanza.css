@@ -64,7 +64,7 @@ h1 {
 #extension a:before {
   content: "";
   display: inline-block;
-  background-image: url(../addition/csssprite.png?12356);
+  background-image: url(/stanza/assets/csssprite.png);
   margin-right: .5em;
 }
 #extension .blank a:before {
