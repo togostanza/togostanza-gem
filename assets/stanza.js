@@ -19,9 +19,8 @@ jQuery(function($) {
 
     setTimeout(function(){
       $("<iframe></iframe>")
-        .attr({class: 'unload', src: src, frameborder: 0})
-        .attr({id: 'stanza-frame-' + index})
-        .attr({name: 'stanza-frame-' + index})
+        .addClass('unload')
+        .attr({src: src, frameborder: 0, id: 'stanza-frame-' + index, name: 'stanza-frame-' + index})
         .width(data.stanzaWidth || '100%')
         .height(data.stanzaHeight)
         .appendTo($this)
