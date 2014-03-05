@@ -4,8 +4,7 @@ jQuery(function($) {
   $('[data-stanza]').each(function(index) {
     var $this  = $(this),
         data   = $this.data(),
-        params = {},
-        counter = 1;
+        params = {};
 
     $.each(this.attributes, function(i, attr) {
       var key = (RE.exec(attr.name) || [])[1]
@@ -15,22 +14,21 @@ jQuery(function($) {
       }
     });
 
-    var $iframe = $("<iframe class='unload'></iframe>").attr({frameborder: 0}),
-        src = data.stanza + '?' + $.param(params),
-        width = (this.className == 'nanostanza-container') ? '' : (data.stanzaWidth || '100%')
+    var src = data.stanza + '?' + $.param(params);
+
 
     setTimeout(function(){
-      $iframe
-        .attr({src: src})
+      $("<iframe></iframe>")
+        .attr({class: 'unload', src: src, frameborder: 0})
         .attr({id: 'stanza-frame-' + index})
         .attr({name: 'stanza-frame-' + index})
-        .width(width)
+        .width(data.stanzaWidth || '100%')
         .height(data.stanzaHeight)
         .appendTo($this)
         .load(function(){
           $(this).removeClass("unload");
         });
-      }, (++counter) * 500);
+      }, index * 500);
   });
 
   window.onmessage = function(e) {
