@@ -16,13 +16,18 @@ jQuery(function($) {
 
     var src = data.stanza + '?' + $.param(params);
 
-    $('<iframe></iframe>')
-      .attr({src: src, frameborder: 0})
-      .attr({id: 'stanza-frame-' + index})
-      .attr({name: 'stanza-frame-' + index})
-      .width(data.stanzaWidth || '100%')
-      .height(data.stanzaHeight)
-      .appendTo($this);
+
+    setTimeout(function(){
+      $("<iframe></iframe>")
+        .addClass('unload')
+        .attr({src: src, frameborder: 0, id: 'stanza-frame-' + index, name: 'stanza-frame-' + index})
+        .width(data.stanzaWidth || '100%')
+        .height(data.stanzaHeight)
+        .appendTo($this)
+        .load(function(){
+          $(this).removeClass("unload");
+        });
+      }, index * 500);
   });
 
   window.onmessage = function(e) {
