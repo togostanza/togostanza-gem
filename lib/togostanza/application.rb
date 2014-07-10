@@ -44,5 +44,11 @@ module TogoStanza
 
       render :html, @stanza.help, layout_engine: :haml
     end
+
+    get '/:id/text_search' do |id|
+      @stanza = Stanza.find(id).new
+      identifiers = @stanza.text_search params[:q]
+      json enabled: true, count: identifiers.size, urls: identifiers
+    end
   end
 end

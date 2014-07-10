@@ -69,5 +69,12 @@ module TogoStanza::Stanza
 
       TogoStanza::Markdown.render(File.read(path))
     end
+
+    def text_search(q)
+      path = File.join(root, 'text_search.sparql.erb')
+      # XXX 雑な実装やで...
+      sparql = Tilt.new(path).render(Object.new, q: q)
+      query("http://ep.dbcls.jp/sparql7ssd", sparql)
+    end
   end
 end
