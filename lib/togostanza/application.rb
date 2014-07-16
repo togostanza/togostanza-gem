@@ -46,8 +46,14 @@ module TogoStanza
     end
 
     get '/:id/text_search' do |id|
+      stanza_uri = request.env['REQUEST_URI'].gsub(/\/text_search.*/, '')
+
       @stanza = Stanza.find(id).new
-      identifiers = @stanza.text_search params[:q]
+      identifiers = @stanza.text_search(params[:q]).map {|param_hash|
+        parameters = param_hash.map {|k, v| "#{k}=#{v}" }.join('&')
+        "#{stanza_uri}?#{parameters}"
+      }
+
       json enabled: true, count: identifiers.size, urls: identifiers
     end
   end
