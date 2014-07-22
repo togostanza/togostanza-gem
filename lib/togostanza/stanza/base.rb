@@ -16,11 +16,13 @@ module TogoStanza::Stanza
   autoload :Markdown,      'togostanza/stanza/markdown'
   autoload :Querying,      'togostanza/stanza/querying'
   autoload :Grouping,      'togostanza/stanza/grouping'
+  autoload :TextSearch,    'togostanza/stanza/text_search'
 
   class Base
     extend ExpressionMap::Macro
     include Querying
     include Grouping
+    include TextSearch
 
     define_expression_map :properties
     define_expression_map :resources
@@ -68,13 +70,6 @@ module TogoStanza::Stanza
       path = File.join(root, 'help.md')
 
       TogoStanza::Markdown.render(File.read(path))
-    end
-
-    def text_search(q)
-      path = File.join(root, 'text_search.sparql.erb')
-      # XXX 雑な実装やで...
-      sparql = Tilt.new(path).render(Object.new, q: q)
-      query("http://ep.dbcls.jp/sparql7ssd", sparql)
     end
   end
 end
