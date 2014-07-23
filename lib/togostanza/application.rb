@@ -56,7 +56,7 @@ module TogoStanza
         }
 
         json enabled: true, count: identifiers.size, urls: identifiers
-      rescue NotImplementedError
+      rescue NoSearchDeclarationError
         json enabled: false, count: 0, urls: []
       end
     end
