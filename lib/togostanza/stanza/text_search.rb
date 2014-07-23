@@ -8,6 +8,8 @@ module TogoStanza::Stanza
     def text_search(q)
       raise TogoStanza::NoSearchDeclarationError unless self.class.method_defined?(:search_declarations)
 
+      return [] if q.blank?
+
       search_declarations.each_value.flat_map {|block| instance_exec(q, &block) }
     end
 
