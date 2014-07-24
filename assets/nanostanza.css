@@ -2,7 +2,7 @@
 
 body {
   background-color: #fff;
-  font-family: "Helvetica Neue","Arial",san-serif;
+  font-family: "Arial",san-serif;
   height: 160px;
   font-size: 12px;
   line-height: 140%;
@@ -20,18 +20,96 @@ h1 {
   position: absolute;
   width: 100%;
   margin: 0;
-  padding: 0 10px 6px;
-  bottom: 0;
+  padding: 0 4px 6px;
+  top: 6px;
   left: 0;
   box-sizing: border-box;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 14px;
-  font-weight: normal;
-  color: #45b8cc;
+  font-weight: bold;
+  /*color: #45b8cc;*/
+  color: #000;
   text-align: center;
   text-shadow: -1px -1px 0px #fff, -1px 0px 0px #fff, -1px 1px 0px #fff, 0px -1px 0px #fff, 0px 1px 0px #fff, 1px -1px 0px #fff, 1px 0px 0px #fff, 1px 1px 0px #fff;
   z-index: 1;
 }
+#main-view {
+  position: relative;
+  width: 100%;
+  height: 160px;
+}
+
+
+/* color scheme
+ -------------------------- */
+.gene { color: #8db93c; }
+.nc-rna { color: #45b8cc; }
+.t-rna { color: #ed6592; }
+.r-rna { color: #e59033; }
+
+/* misc.
+ -------------------------- */
+ .hidden {
+  display: none;
+ }
+ .n-slash-a {
+  color: #bfbeba;
+  letter-spacing: .25em;
+ }
+
+
+/* svg
+ -------------------------- */
+.font-size-large {
+  font-size: 36px;
+}
+.font-size-middle {
+  font-size: 20px;
+}
+.font-size-small {
+  font-size: 12px;
+}
+.fill-base-color,
+.unit {
+  fill: #249eb3;
+}
+.fill-black {
+  fill: #333030;
+}
+.fill-gray {
+  fill: #bfbeba;
+}
+.fill-light-gray {
+  fill: #e5e5e4;
+}
+.stroke-base-color {
+  stroke: #249eb3;
+}
+.stroke-black {
+  stroke: #333030;
+}
+.stroke-gray {
+  stroke: #bfbeba;
+}
+.stroke-light-gray {
+  stroke: #e5e5e4;
+}
+.bold {
+  font-weight: bold;
+}
+.text-anchor-start {
+  text-anchor: start;
+}
+.text-anchor-middle {
+  text-anchor: middle;
+}
+.text-anchor-end {
+  text-anchor: end;
+}
+.dash {
+  stroke-dasharray: 2 2;
+}
+
 
 
 /* extension
@@ -56,7 +134,7 @@ h1 {
   opacity: 1;
 }
 #extension p {
-  margin: 0 10px; 
+  margin: 0 10px;
 }
 #extension a {
   color: #fff;
@@ -78,7 +156,7 @@ h1 {
  -------------------------- */
 .single-text-view {
   margin: 0;
-  line-height: 150px;
+  line-height: 164px;
   text-align: center;
   font-weight: bold;
   font-size: 16px;
@@ -95,6 +173,7 @@ h1 {
   font-size: 50%;
   font-weight: normal;
   margin-right: -5px;
+  color: #249eb3;
 }
 p.text-size-small {
   font-size: 32px;
@@ -110,18 +189,80 @@ p.text-size-large {
   padding: 0 12px;
   line-height: 16px;
   font-weight: bold;
-  position: relative;
+  position: absolute;
+  bottom: 6px;
 }
 
 
 /* image
  -------------------------- */
-img.single-image {
-  width: 300%;
+img.single-image-view {
+  width: 100%;
   height: auto;
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+
+/* growth temperature
+ -------------------------- */
+.thermophile {
+  fill: #ff8b00;
+}
+.mesophile {
+  fill: #e7ed4d;
+}
+.psychrophile {
+  fill: #66c0ed;
+}
+
+
+/* habitat
+ -------------------------- */
+figure.habitat {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  margin: 0;
+}
+figure.habitat img {
+  width: 90px;
+  height: 90px;
+  margin-top: 35px;
+}
+figure.habitat figcaption {
+  font-size: 12px;
+  font-weight: bold;
+  color: #249eb3;
+  position: absolute;
+  bottom: 6px;
+  width: 100%;
+}
+
+
+
+/* key value table
+ -------------------------- */
+.key-value-table {
+  width: 100%;
+  line-height: 27px;
+  vertical-align: bottom;
+}
+.key-value-table th {
+  text-align: left;
+  padding-left: 16px;
+  font-size: 12px;
+}
+
+.key-value-table td {
+  text-align: right;
+  padding-right: 16px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 
