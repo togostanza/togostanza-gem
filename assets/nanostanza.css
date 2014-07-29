@@ -220,9 +220,9 @@ img.single-image-view {
 }
 
 
-/* habitat
+/* figure
  -------------------------- */
-figure.habitat {
+figure {
   position: relative;
   width: 100%;
   height: 100%;
@@ -234,7 +234,7 @@ figure.habitat img {
   height: 90px;
   margin-top: 35px;
 }
-figure.habitat figcaption {
+figure figcaption {
   font-size: 12px;
   font-weight: bold;
   color: #249eb3;

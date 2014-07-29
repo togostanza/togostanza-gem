@@ -204,7 +204,6 @@ $(function(){
 		if ($body.has(".vertical-centering").length > 0) {
 			$(".vertical-centering").each(function(){
 				$this = $(this);
-				// window.console.log($this.outerHeight());
 				$this.css({
 					position: "relative",
 					top: (screenHeight - $this.outerHeight()) * .5 + 8
@@ -212,5 +211,4 @@ $(function(){
 			})
 		}
 	}
-
 });
