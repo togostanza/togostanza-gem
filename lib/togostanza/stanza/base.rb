@@ -17,39 +17,37 @@ FS.register_helper :data_download do
   <<-HTML.strip_heredoc.html_safe
     <script src="/stanza/assets/FileSaver.js"></script>
     <script src="/stanza/assets/canvas-toBlob.js"></script>
-    <script>
-      $(function() {
-        var body = $('body').append("<div id='stanza_buttons'></div>");
-        body.find("div#stanza_buttons").append("<button id='download_json' class='btn btn-mini' href='#'><i class='icon-picture'></i> Save json</button>")
 
-        $("#download_json").on("click",function(){
-          var blob = new Blob([JSON.stringify(#{json})], {type: "text/plain;charset=utf-8"});
-          saveAs(blob, "data.json");
-        });
-      });
-    </script>
-  HTML
-end
-
-FS.register_helper :svg_download_button do
-  <<-HTML.strip_heredoc.html_safe
     <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/rgbcolor.js"></script>
     <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/StackBlur.js"></script>
     <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/canvg.js"></script>
 
     <script>$(function() {
-      $("#stanza_buttons").append("<button id='download_image' class='btn btn-mini' href='#'><i class='icon-picture'></i> Save image</button>");
+      $('body').append("<div id='stanza_buttons'></div>");
+      $("div#stanza_buttons").append("<button id='download_json' class='btn btn-mini' href='#'><i class='icon-font'></i> Save json</button>");
+      $("div#stanza_buttons").append("<button id='download_image' class='btn btn-mini' href='#'><i class='icon-picture'></i> Save image</button>");
+
       $("body").append("<div style='display: none;'><canvas id='drawarea'></canvas></div>");
 
+      $("#download_json").on("click",function(){
+        var blob = new Blob([JSON.stringify(#{json})], {type: "text/plain;charset=utf-8"});
+        saveAs(blob, "data.json");
+      });
+
       $("#download_image").on("click",function(){
-        var svgText = $("svg")[0].outerHTML;
-        canvg('drawarea', svgText);
+        if ($("svg")[0]) {
+          var svgText = $("svg")[0].outerHTML;
+          canvg('drawarea', svgText);
 
-        var canvas = $("#drawarea")[0];
+          var canvas = $("#drawarea")[0];
 
-        canvas.toBlob(function(blob) {
-          saveAs(blob, "image.png");
-        }, "image/png");
+          canvas.toBlob(function(blob) {
+            saveAs(blob, "image.png");
+          }, "image/png");
+        } else {
+          // TODO...
+          alert('Sorry');
+        }
       });
     });
     </script>
