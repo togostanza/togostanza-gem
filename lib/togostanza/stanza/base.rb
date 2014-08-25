@@ -11,10 +11,23 @@ FS.register_helper :adjust_iframe_height_script do
   HTML
 end
 
-FS.register_helper :data_download_area do
+FS.register_helper :data_download do
+  json = this.to_json
+
   <<-HTML.strip_heredoc.html_safe
-    <div id="stanza_buttons">
-    </div>
+    <script src="/stanza/assets/FileSaver.js"></script>
+    <script src="/stanza/assets/canvas-toBlob.js"></script>
+    <script>
+      $(function() {
+        var body = $('body').append("<div id='stanza_buttons'></div>");
+        body.find("div#stanza_buttons").append("<button id='download_json' class='btn btn-mini' href='#'><i class='icon-picture'></i> Save json</button>")
+
+        $("#download_json").on("click",function(){
+          var blob = new Blob([JSON.stringify(#{json})], {type: "text/plain;charset=utf-8"});
+          saveAs(blob, "data.json");
+        });
+      });
+    </script>
   HTML
 end
 
@@ -24,8 +37,6 @@ FS.register_helper :svg_download_button do
     <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/StackBlur.js"></script>
     <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/canvg.js"></script>
 
-    <script src="/stanza/assets/FileSaver.js"></script>
-    <script src="/stanza/assets/canvas-toBlob.js"></script>
     <script>$(function() {
       $("#stanza_buttons").append("<button id='download_image' class='btn btn-mini' href='#'><i class='icon-picture'></i> Save image</button>");
       $("body").append("<div style='display: none;'><canvas id='drawarea'></canvas></div>");
@@ -40,7 +51,8 @@ FS.register_helper :svg_download_button do
           saveAs(blob, "image.png");
         }, "image/png");
       });
-    });</script>
+    });
+    </script>
   HTML
 end
 
