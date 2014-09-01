@@ -25,13 +25,22 @@ FS.register_helper :data_download do
     <script>$(function() {
       $('body').append("<div id='stanza_buttons'></div>");
       $("div#stanza_buttons").append("<button id='download_json' class='btn btn-mini' href='#'><i class='icon-font'></i> Save json</button>");
-      $("div#stanza_buttons").append("<button id='download_image' class='btn btn-mini' href='#'><i class='icon-picture'></i> Save image</button>");
+      $("div#stanza_buttons").append("<button id='download_svg' class='btn btn-mini' href='#'><i class='icon-font'></i> Save image(svg)</button>");
+      $("div#stanza_buttons").append("<button id='download_image' class='btn btn-mini' href='#'><i class='icon-picture'></i> Save image(png)</button>");
 
       $("body").append("<div style='display: none;'><canvas id='drawarea'></canvas></div>");
 
       $("#download_json").on("click",function(){
         var blob = new Blob([JSON.stringify(#{json})], {type: "text/plain;charset=utf-8"});
         saveAs(blob, "data.json");
+      });
+
+      $("#download_svg").on("click",function(){
+        if ($("svg")[0]) {
+          var svgText = $("svg")[0].outerHTML;
+          var blob = new Blob([svgText], {type: "image/svg+xml;charset=utf-8"});
+          saveAs(blob, "data.svg");
+        }
       });
 
       $("#download_image").on("click",function(){
