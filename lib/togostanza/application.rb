@@ -46,8 +46,8 @@ module TogoStanza
     end
 
     get '/:id/text_search' do |id|
+      @stanza    = Stanza.find(id).new
       stanza_uri = request.env['REQUEST_URI'].gsub(/\/text_search.*/, '')
-      @stanza = Stanza.find(id).new
 
       begin
         identifiers = @stanza.text_search(params[:q]).map {|param_hash|

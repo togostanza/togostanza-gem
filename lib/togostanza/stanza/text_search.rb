@@ -1,16 +1,25 @@
-require 'active_support/core_ext/class/attribute'
+require 'togostanza/stanza/search_query'
 
 class TogoStanza::NoSearchDeclarationError < StandardError; end
 
 module TogoStanza::Stanza
   module TextSearch
+    extend ActiveSupport::Concern
 
-    def text_search(q)
+    def text_seach_filter(var_name, query)
+      query.to_filter(TogoStanza.text_search_method, var_name)
+    end
+
+    def text_search(input)
       raise TogoStanza::NoSearchDeclarationError unless self.class.method_defined?(:search_declarations)
 
-      return [] if q.blank?
+      query = SearchQuery.new(input)
 
-      search_declarations.each_value.flat_map {|block| instance_exec(q, &block) }
+      return [] if query.tokens.empty?
+
+      search_declarations.each_value.flat_map {|block|
+        instance_exec(query, &block)
+      }
     end
 
     module ClassMethods
@@ -25,10 +34,6 @@ module TogoStanza::Stanza
 
         search_declarations[symbol] = block
       end
-    end
-
-    def self.included(klass)
-      klass.extend ClassMethods
     end
   end
 end

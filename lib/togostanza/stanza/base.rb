@@ -13,9 +13,9 @@ end
 
 module TogoStanza::Stanza
   autoload :ExpressionMap, 'togostanza/stanza/expression_map'
+  autoload :Grouping,      'togostanza/stanza/grouping'
   autoload :Markdown,      'togostanza/stanza/markdown'
   autoload :Querying,      'togostanza/stanza/querying'
-  autoload :Grouping,      'togostanza/stanza/grouping'
   autoload :TextSearch,    'togostanza/stanza/text_search'
 
   class Base
