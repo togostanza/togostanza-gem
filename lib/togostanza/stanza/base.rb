@@ -31,7 +31,7 @@ FS.register_helper :data_download do
       $("body").append("<div style='display: none;'><canvas id='drawarea'></canvas></div>");
 
       $("#download_json").on("click",function(){
-        var blob = new Blob([JSON.stringify(#{json})], {type: "text/plain;charset=utf-8"});
+        var blob = new Blob([JSON.stringify(#{json}, "", "\t")], {type: "text/plain;charset=utf-8"});
         saveAs(blob, "data.json");
       });
 
