@@ -51,7 +51,7 @@ module TogoStanza
 
       begin
         identifiers = @stanza.text_search(params[:q]).map {|param_hash|
-          parameters = param_hash.map {|k, v| "#{k}=#{v}" }.join('&')
+          parameters = Rack::Utils.build_query(param_hash)
           "#{stanza_uri}?#{parameters}"
         }
 
