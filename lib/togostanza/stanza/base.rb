@@ -12,7 +12,8 @@ FS.register_helper :adjust_iframe_height_script do
 end
 
 FS.register_helper :data_download do
-  json = this.to_json
+  this.delete(:css_uri)
+  json =  this.to_json
 
   <<-HTML.strip_heredoc.html_safe
     <script src="/stanza/assets/FileSaver.js"></script>
@@ -40,6 +41,9 @@ FS.register_helper :data_download do
           var svgText = $("svg")[0].outerHTML;
           var blob = new Blob([svgText], {type: "image/svg+xml;charset=utf-8"});
           saveAs(blob, "data.svg");
+        } else {
+          // TODO...
+          alert('Sorry');
         }
       });
 
