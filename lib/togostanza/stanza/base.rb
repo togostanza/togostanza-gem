@@ -16,11 +16,13 @@ module TogoStanza::Stanza
   autoload :Markdown,      'togostanza/stanza/markdown'
   autoload :Querying,      'togostanza/stanza/querying'
   autoload :Grouping,      'togostanza/stanza/grouping'
+  autoload :TextSearch,    'togostanza/stanza/text_search'
 
   class Base
     extend ExpressionMap::Macro
     include Querying
     include Grouping
+    include TextSearch
 
     define_expression_map :properties
     define_expression_map :resources
