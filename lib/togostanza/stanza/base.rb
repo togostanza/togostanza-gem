@@ -11,10 +11,13 @@ FS.register_helper :adjust_iframe_height_script do
   HTML
 end
 
+
 FS.register_helper :data_download do
   this.delete(:css_uri)
   json = this.to_json
-  yaml = this.to_hash.to_yaml.to_s.gsub("\n", "\\n");
+
+  # Fix me
+  yaml = escape_javascript(this.to_yaml.gsub('!ruby/hash:Hashie::Mash', ''))
 
   <<-HTML.strip_heredoc.html_safe
     <script src="/stanza/assets/FileSaver.js"></script>
@@ -72,6 +75,16 @@ FS.register_helper :data_download do
     });
     </script>
   HTML
+end
+
+JS_ESCAPE_MAP = { '\\' => '\\\\', '</' => '<\/', "\r\n" => '\n', "\n" => '\n', "\r" => '\n', '"' => '\\"', "'" => "\\'" }
+
+def escape_javascript(text)
+  if text
+    text.gsub(/(\|<\/|\r\n|\342\200\250|\342\200\251|[\n\r"'])/u) {|match| JS_ESCAPE_MAP[match] }
+  else
+    ''
+  end
 end
 
 module TogoStanza::Stanza
