@@ -13,7 +13,8 @@ end
 
 FS.register_helper :data_download do
   this.delete(:css_uri)
-  json =  this.to_json
+  json = this.to_json
+  yaml = this.to_hash.to_yaml.to_s.gsub("\n", "\\n");
 
   <<-HTML.strip_heredoc.html_safe
     <script src="/stanza/assets/FileSaver.js"></script>
@@ -25,14 +26,20 @@ FS.register_helper :data_download do
 
     <script>$(function() {
       $('body').append("<div id='stanza_buttons'></div>");
-      $("div#stanza_buttons").append("<button id='download_json' class='btn btn-mini' href='#'><i class='icon-font'></i> Save json</button>");
-      $("div#stanza_buttons").append("<button id='download_svg' class='btn btn-mini' href='#'><i class='icon-font'></i> Save image(svg)</button>");
-      $("div#stanza_buttons").append("<button id='download_image' class='btn btn-mini' href='#'><i class='icon-picture'></i> Save image(png)</button>");
+      $("div#stanza_buttons").append("<button id='download_yaml' class='btn btn-mini' href='#'>Save yaml</button>");
+      $("div#stanza_buttons").append("<button id='download_json' class='btn btn-mini' href='#'>Save json</button>");
+      $("div#stanza_buttons").append("<button id='download_svg' class='btn btn-mini' href='#'>Save svg</button>");
+      $("div#stanza_buttons").append("<button id='download_image' class='btn btn-mini' href='#'>Save image</button>");
 
       $("body").append("<div style='display: none;'><canvas id='drawarea'></canvas></div>");
 
+      $("#download_yaml").on("click",function(){
+        var blob = new Blob(["#{yaml}"], {type: "text/yaml; charset=utf-8"});
+        saveAs(blob, "data.yaml");
+      });
+
       $("#download_json").on("click",function(){
-        var blob = new Blob([JSON.stringify(#{json}, "", "\t")], {type: "text/plain;charset=utf-8"});
+        var blob = new Blob([JSON.stringify(#{json}, "", "\t")], {type: "application/json; charset=utf-8"});
         saveAs(blob, "data.json");
       });
 
@@ -43,7 +50,7 @@ FS.register_helper :data_download do
           saveAs(blob, "data.svg");
         } else {
           // TODO...
-          alert('Sorry');
+          alert("Can't download svg file");
         }
       });
 
@@ -59,7 +66,7 @@ FS.register_helper :data_download do
           }, "image/png");
         } else {
           // TODO...
-          alert('Sorry');
+          alert("Can't download image file");
         }
       });
     });
