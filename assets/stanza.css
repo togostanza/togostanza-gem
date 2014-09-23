@@ -125,3 +125,8 @@ pre {
 .span10 { width: 83.3333%; }
 .span11 { width: 91.6666%; }
 .span12 { width: 100%; }
+
+body > div#stanza_buttons {
+	margin: 0 0;
+	padding: 0 0;
+}
