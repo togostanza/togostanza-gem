@@ -58,15 +58,18 @@ FS.register_helper :data_download do
       });
 
       $("#download_image").on("click",function(){
-        if ($("svg")[0]) {
-          var svgText = $("svg")[0].outerHTML;
-          canvg('drawarea', svgText);
+        var svg = $("svg")[0];
+        if (svg) {
+          var svgText = svg.outerHTML;
+          canvg('drawarea', svgText, {renderCallback: function(){
+              var canvas = $("#drawarea")[0];
 
-          var canvas = $("#drawarea")[0];
+              canvas.toBlob(function(blob) {
+                saveAs(blob, "data.png");
+              }, "image/png");
+            }
+          });
 
-          canvas.toBlob(function(blob) {
-            saveAs(blob, "image.png");
-          }, "image/png");
         } else {
           // TODO...
           alert("Can't download image file");
