@@ -35,18 +35,34 @@ FS.register_helper :data_download do
 
       $("#download_csv").on("click",function(){
         var csv = '';
-        if ($('table > tbody')[0]) {
-          csv = $('table > tbody')[0].innerText.replace(/\t/g, ",");
-        } else if ($('body div:not(#stanza_buttons)')[0]) {
-          csv = $('body div:not(#stanza_buttons)')[0].innerText.replace(/\t/g, ",");
+        tables = $('table  tbody');
+        if (tables.length > 0) {
+          for (var tableNum = 0; tableNum < tables.length; tableNum++) {
+            var table = tables[tableNum];
+            var rowLength = table.rows.length;
+            var colLength = table.rows[0].cells.length;
+            for (var i = 0; i < rowLength; i++) {
+              for (var j = 0; j < colLength; j++) {
+                var textContent = table.rows[i].cells[j].textContent.replace(/^\\s+/mg, "").replace(/\\n/g, "");
+                if (j === colLength - 1) {
+                  csv +=  textContent;
+                } else {
+                  csv +=  textContent + ',';
+                }
+              }
+              csv += "\\r\\n";
+            }
+          }
         }
 
         var blob = new Blob([csv], {type: "text/csv; charset=utf-8"});
+
         saveAs(blob, "data.csv");
       });
 
       $("#download_json").on("click",function(){
         var blob = new Blob([JSON.stringify(#{json}, "", "\t")], {type: "application/json; charset=utf-8"});
+
         saveAs(blob, "data.json");
       });
 
@@ -60,7 +76,7 @@ FS.register_helper :data_download do
             svg.attr("xmlns:xlink","http://www.w3.org/1999/xlink");
           }
 
-          var svgText = svg[0].outerHTML;
+          var svgText = svg.wrap('<div>').parent().html();
           var blob = new Blob([svgText], {type: "image/svg+xml;charset=utf-8"});
           saveAs(blob, "data.svg");
         } else {
@@ -72,7 +88,7 @@ FS.register_helper :data_download do
       $("#download_image").on("click",function(){
         var svg = $("svg");
         if (svg[0]) {
-          var svgText = svg[0].outerHTML;
+          var svgText = svg.wrap('<div>').parent().html();
           canvg('drawarea', svgText, {renderCallback: function(){
               var canvas = $("#drawarea")[0];
 
