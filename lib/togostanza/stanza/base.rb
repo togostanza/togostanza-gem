@@ -47,8 +47,16 @@ FS.register_helper :data_download do
       });
 
       $("#download_svg").on("click",function(){
-        if ($("svg")[0]) {
-          var svgText = $("svg")[0].outerHTML;
+        var svg = $("svg");
+        if (svg[0]) {
+          if (!svg.attr("xmls")) {
+            svg.attr("xmlns","http://www.w3.org/2000/svg");
+          }
+          if (!svg.attr("xmls:xlink")) {
+            svg.attr("xmlns:xlink","http://www.w3.org/1999/xlink");
+          }
+
+          var svgText = svg[0].outerHTML;
           var blob = new Blob([svgText], {type: "image/svg+xml;charset=utf-8"});
           saveAs(blob, "data.svg");
         } else {
@@ -58,9 +66,9 @@ FS.register_helper :data_download do
       });
 
       $("#download_image").on("click",function(){
-        var svg = $("svg")[0];
-        if (svg) {
-          var svgText = svg.outerHTML;
+        var svg = $("svg");
+        if (svg[0]) {
+          var svgText = svg[0].outerHTML;
           canvg('drawarea', svgText, {renderCallback: function(){
               var canvas = $("#drawarea")[0];
 
