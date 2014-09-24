@@ -16,9 +16,6 @@ FS.register_helper :data_download do
   this.delete(:css_uri)
   json = this.to_json
 
-  # Fix me
-  yaml = escape_javascript(this.to_yaml.gsub('!ruby/hash:Hashie::Mash', ''))
-
   <<-HTML.strip_heredoc.html_safe
     <script src="/stanza/assets/FileSaver.js"></script>
     <script src="/stanza/assets/canvas-toBlob.js"></script>
@@ -37,15 +34,15 @@ FS.register_helper :data_download do
       $("body").append("<div style='display: none;'><canvas id='drawarea'></canvas></div>");
 
       $("#download_csv").on("click",function(){
+        var csv = '';
         if ($('table > tbody')[0]) {
-          var csv = $('table > tbody')[0].innerText.replace(/\t/g, ",");
-          var blob = new Blob([csv], {type: "text/csv; charset=utf-8"});
-          saveAs(blob, "data.csv");
+          csv = $('table > tbody')[0].innerText.replace(/\t/g, ",");
         } else if ($('body div:not(#stanza_buttons)')[0]) {
-          var csv = $('body div:not(#stanza_buttons)')[0].innerText.replace(/\t/g, ",");
-          var blob = new Blob([csv], {type: "text/csv; charset=utf-8"});
-          saveAs(blob, "data.csv");
+          csv = $('body div:not(#stanza_buttons)')[0].innerText.replace(/\t/g, ",");
         }
+
+        var blob = new Blob([csv], {type: "text/csv; charset=utf-8"});
+        saveAs(blob, "data.csv");
       });
 
       $("#download_json").on("click",function(){
@@ -93,16 +90,6 @@ FS.register_helper :data_download do
     });
     </script>
   HTML
-end
-
-JS_ESCAPE_MAP = { '\\' => '\\\\', '</' => '<\/', "\r\n" => '\n', "\n" => '\n', "\r" => '\n', '"' => '\\"', "'" => "\\'" }
-
-def escape_javascript(text)
-  if text
-    text.gsub(/(\|<\/|\r\n|\342\200\250|\342\200\251|[\n\r"'])/u) {|match| JS_ESCAPE_MAP[match] }
-  else
-    ''
-  end
 end
 
 module TogoStanza::Stanza
