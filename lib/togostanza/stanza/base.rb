@@ -29,16 +29,23 @@ FS.register_helper :data_download do
 
     <script>$(function() {
       $('body').append("<div id='stanza_buttons'></div>");
-      $("div#stanza_buttons").append("<button id='download_yaml' class='btn btn-mini' href='#'>Save yaml</button>");
+      $("div#stanza_buttons").append("<button id='download_csv' class='btn btn-mini' href='#'>Save csv</button>");
       $("div#stanza_buttons").append("<button id='download_json' class='btn btn-mini' href='#'>Save json</button>");
       $("div#stanza_buttons").append("<button id='download_svg' class='btn btn-mini' href='#'>Save svg</button>");
       $("div#stanza_buttons").append("<button id='download_image' class='btn btn-mini' href='#'>Save image</button>");
 
       $("body").append("<div style='display: none;'><canvas id='drawarea'></canvas></div>");
 
-      $("#download_yaml").on("click",function(){
-        var blob = new Blob(["#{yaml}"], {type: "text/yaml; charset=utf-8"});
-        saveAs(blob, "data.yaml");
+      $("#download_csv").on("click",function(){
+        if ($('table > tbody')[0]) {
+          var csv = $('table > tbody')[0].innerText.replace(/\t/g, ",");
+          var blob = new Blob([csv], {type: "text/csv; charset=utf-8"});
+          saveAs(blob, "data.csv");
+        } else if ($('body div:not(#stanza_buttons)')[0]) {
+          var csv = $('body div:not(#stanza_buttons)')[0].innerText.replace(/\t/g, ",");
+          var blob = new Blob([csv], {type: "text/csv; charset=utf-8"});
+          saveAs(blob, "data.csv");
+        }
       });
 
       $("#download_json").on("click",function(){
