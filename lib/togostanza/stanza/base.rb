@@ -13,10 +13,17 @@ end
 
 module TogoStanza::Stanza
   autoload :ExpressionMap, 'togostanza/stanza/expression_map'
+  autoload :Grouping,      'togostanza/stanza/grouping'
   autoload :Markdown,      'togostanza/stanza/markdown'
   autoload :Querying,      'togostanza/stanza/querying'
-  autoload :Grouping,      'togostanza/stanza/grouping'
   autoload :TextSearch,    'togostanza/stanza/text_search'
+
+  class Context < Hashie::Mash
+    def respond_to_missing?(*)
+      # XXX It looks ugly, but we need use not pre-defined properties
+      true
+    end
+  end
 
   class Base
     extend ExpressionMap::Macro
@@ -53,7 +60,7 @@ module TogoStanza::Stanza
     attr_reader :params
 
     def context
-      Hashie::Mash.new(properties.resolve_all_in_parallel(self, params))
+      Context.new(properties.resolve_all_in_parallel(self, params))
     end
 
     def resource(name)

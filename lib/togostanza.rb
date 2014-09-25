@@ -7,9 +7,21 @@ module TogoStanza
   autoload :Markdown,    'togostanza/markdown'
   autoload :Stanza,      'togostanza/stanza'
 
-  def self.sprockets
-    @sprockets ||= Sprockets::Environment.new.tap {|sprockets|
-      sprockets.append_path File.expand_path('../../assets', __FILE__)
-    }
+  class << self
+    attr_accessor :text_search_method
+
+    def configure
+      yield self
+    end
+
+    def sprockets
+      @sprockets ||= Sprockets::Environment.new.tap {|sprockets|
+        sprockets.append_path File.expand_path('../../assets', __FILE__)
+      }
+    end
+  end
+
+  configure do |config|
+    config.text_search_method = :regex
   end
 end

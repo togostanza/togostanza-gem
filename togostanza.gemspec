@@ -17,8 +17,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'activesupport'
-  # テンプレートで利用する変数名が stanza.rb から渡されない場合(例: SPARQLでOPTIONALで指定など)、0.3.3 では UnknownHelperException になる
-  spec.add_runtime_dependency 'flavour_saver', ["=0.3.2"]
+  spec.add_runtime_dependency 'flavour_saver'
   spec.add_runtime_dependency 'haml'
   spec.add_runtime_dependency 'hashie'
   spec.add_runtime_dependency 'parallel'
@@ -34,6 +33,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'capybara'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec'
+  spec.add_development_dependency 'rspec-its'
 
   spec.required_ruby_version = '>= 1.9.3'
 end
