@@ -6,7 +6,7 @@ module TogoStanza::Stanza
   module TextSearch
     extend ActiveSupport::Concern
 
-    def text_seach_filter(var_name, query)
+    def text_search_filter(var_name, query)
       query.to_filter(TogoStanza.text_search_method, var_name)
     end
 
