@@ -12,35 +12,34 @@ FS.register_helper :adjust_iframe_height_script do
 end
 
 FS.register_helper :download_csv do
-  init_download_script +
   <<-HTML.strip_heredoc.html_safe
     <script>$(function() {
+      #{init_download_script}
       $("div#stanza_buttons").append("<button id='download_csv' class='btn btn-mini' href='#'>Save csv</button>");
 
-      $("#download_csv").on("click",function(){
-        var csv = '';
-        var tables = $('table  tbody');
-        if (tables.length > 0) {
-          for (var tableNum = 0; tableNum < tables.length; tableNum++) {
-            var table = tables[tableNum];
-            var rowLength = table.rows.length;
-            var colLength = table.rows[0].cells.length;
-            for (var i = 0; i < rowLength; i++) {
-              for (var j = 0; j < colLength; j++) {
-                var textContent = table.rows[i].cells[j].textContent.replace(/^\\s+/mg, "").replace(/\\n/g, "");
-                if (j === colLength - 1) {
-                  csv +=  textContent;
-                } else {
-                  csv +=  textContent + ',';
-                }
+      var csv = '';
+      var tables = $('table  tbody');
+      if (tables.length > 0) {
+        for (var tableNum = 0; tableNum < tables.length; tableNum++) {
+          var table = tables[tableNum];
+          var rowLength = table.rows.length;
+          var colLength = table.rows[0].cells.length;
+          for (var i = 0; i < rowLength; i++) {
+            for (var j = 0; j < colLength; j++) {
+              var textContent = table.rows[i].cells[j].textContent.replace(/^\\s+/mg, "").replace(/\\n/g, "");
+              if (j === colLength - 1) {
+                csv +=  textContent;
+              } else {
+                csv +=  textContent + ',';
               }
-              csv += "\\r\\n";
             }
+            csv += "\\r\\n";
           }
         }
+      }
 
-        var blob = new Blob([csv], {type: "text/csv; charset=utf-8"});
-        saveAs(blob, "data.csv");
+      $("#download_csv").on("click",function(){
+        window.open('data:text/plain;' + (window.btoa?'base64,'+btoa(csv):csv));
       });
 
     });
@@ -52,14 +51,14 @@ FS.register_helper :download_json do
   this.delete(:css_uri)
   json = this.to_json
 
-  init_download_script +
   <<-HTML.strip_heredoc.html_safe
     <script>$(function() {
+      #{init_download_script}
       $("div#stanza_buttons").append("<button id='download_json' class='btn btn-mini' href='#'>Save json</button>");
+      var json_str = JSON.stringify(#{json}, "", "\t");
 
       $("#download_json").on("click",function(){
-        var blob = new Blob([JSON.stringify(#{json}, "", "\t")], {type: "application/json; charset=utf-8"});
-        saveAs(blob, "data.json");
+        window.open('data:application/json;' + (window.btoa?'base64,'+btoa(json_str):json_str));
       });
     });
     </script>
@@ -67,24 +66,23 @@ FS.register_helper :download_json do
 end
 
 FS.register_helper :download_svg do
-  init_download_script +
   <<-HTML.strip_heredoc.html_safe
     <script>$(function() {
+      #{init_download_script}
       $("div#stanza_buttons").append("<button id='download_svg' class='btn btn-mini' href='#'>Save svg</button>");
 
       $("#download_svg").on("click",function(){
         var svg = $("svg");
         if (svg[0]) {
-          if (!svg.attr("xmls")) {
+          if (!svg.attr("xmlns")) {
             svg.attr("xmlns","http://www.w3.org/2000/svg");
           }
-          if (!svg.attr("xmls:xlink")) {
+          if (!svg.attr("xmlns:xlink")) {
             svg.attr("xmlns:xlink","http://www.w3.org/1999/xlink");
           }
 
           var svgText = svg.wrap('<div>').parent().html();
-          var blob = new Blob([svgText], {type: "image/svg+xml;charset=utf-8"});
-          saveAs(blob, "data.svg");
+          window.open('data:image/svg+xml;' + (window.btoa?'base64,'+btoa(svgText):svgText));
         } else {
           // TODO...
           console.log("Can't download svg file");
@@ -97,7 +95,6 @@ FS.register_helper :download_svg do
 end
 
 FS.register_helper :download_image do
-  init_download_script +
   <<-HTML.strip_heredoc.html_safe
     <script src="/stanza/assets/canvas-toBlob.js"></script>
 
@@ -106,6 +103,7 @@ FS.register_helper :download_image do
     <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/canvg.js"></script>
 
     <script>$(function() {
+      #{init_download_script}
       $("div#stanza_buttons").append("<button id='download_image' class='btn btn-mini' href='#'>Save image</button>");
 
       $("body").append("<div style='display: none;'><canvas id='drawarea'></canvas></div>");
@@ -118,7 +116,8 @@ FS.register_helper :download_image do
               var canvas = $("#drawarea")[0];
 
               canvas.toBlob(function(blob) {
-                saveAs(blob, "data.png");
+                var blob_url = window.URL.createObjectURL(blob);
+                window.open(blob_url);
               }, "image/png");
             }
           });
@@ -136,14 +135,9 @@ end
 
 def init_download_script
   <<-HTML.strip_heredoc.html_safe
-    <script>$(function() {
-      if (!$("div#stanza_buttons")[0]) {
-        $('body').append("<div id='stanza_buttons'></div>");
-        var script = $("<script type='text/javascript' src='/stanza/assets/FileSaver.js'>");
-        $('head').append(script);
-      }
-    });
-    </script>
+    if (!$("div#stanza_buttons")[0]) {
+      $('body').append("<div id='stanza_buttons'></div>");
+    }
   HTML
 end
 
