@@ -15,7 +15,7 @@ FS.register_helper :download_csv do
   <<-HTML.strip_heredoc.html_safe
     <script>$(function() {
       #{init_download_script}
-      $("div#stanza_buttons").append("<button id='download_csv' class='btn btn-mini' href='#'>Save csv</button>");
+      $("div#stanza_buttons").append("<a id='download_csv' href='#'><i class='fa fa-file'></i>Open csv</a>");
 
       var csv = '';
       var tables = $('table  tbody');
@@ -54,7 +54,7 @@ FS.register_helper :download_json do
   <<-HTML.strip_heredoc.html_safe
     <script>$(function() {
       #{init_download_script}
-      $("div#stanza_buttons").append("<button id='download_json' class='btn btn-mini' href='#'>Save json</button>");
+      $("div#stanza_buttons").append("<a id='download_json' href='#'><i class='fa fa-file'></i>Open json</a>");
       var json_str = JSON.stringify(#{json}, "", "\t");
 
       $("#download_json").on("click",function(){
@@ -69,7 +69,7 @@ FS.register_helper :download_svg do
   <<-HTML.strip_heredoc.html_safe
     <script>$(function() {
       #{init_download_script}
-      $("div#stanza_buttons").append("<button id='download_svg' class='btn btn-mini' href='#'>Save svg</button>");
+      $("div#stanza_buttons").append("<a id='download_svg' href='#'><i class='fa fa-file'></i>Open svg</a>");
 
       $("#download_svg").on("click",function(){
         var svg = $("svg");
@@ -85,7 +85,7 @@ FS.register_helper :download_svg do
           window.open('data:image/svg+xml;' + (window.btoa?'base64,'+btoa(svgText):svgText));
         } else {
           // TODO...
-          console.log("Can't download svg file");
+          console.log("Can't open svg file");
         }
       });
 
@@ -104,7 +104,7 @@ FS.register_helper :download_image do
 
     <script>$(function() {
       #{init_download_script}
-      $("div#stanza_buttons").append("<button id='download_image' class='btn btn-mini' href='#'>Save image</button>");
+      $("div#stanza_buttons").append("<a id='download_image' href='#'><i class='fa fa-file'></i>Open image</a>");
 
       $("body").append("<div style='display: none;'><canvas id='drawarea'></canvas></div>");
 
@@ -124,7 +124,7 @@ FS.register_helper :download_image do
 
         } else {
           // TODO...
-          console.log("Can't download image file");
+          console.log("Can't open image file");
         }
       });
 
@@ -136,7 +136,7 @@ end
 def init_download_script
   <<-HTML.strip_heredoc.html_safe
     if (!$("div#stanza_buttons")[0]) {
-      $('body').append("<div id='stanza_buttons'></div>");
+      $('body').append("<div id='tool_bar'><div id='stanza_buttons' class='pull-left'></div></div>");
     }
   HTML
 end
@@ -170,6 +170,7 @@ module TogoStanza::Stanza
       else
         %w(
           //cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.2/css/bootstrap.min.css
+          //cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css
           /stanza/assets/stanza.css
         )
       end
