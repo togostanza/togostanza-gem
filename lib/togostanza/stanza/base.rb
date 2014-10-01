@@ -15,7 +15,7 @@ FS.register_helper :download_csv do
   <<-HTML.strip_heredoc.html_safe
     <script>$(function() {
       #{init_download_script}
-      $("div#stanza_buttons").append("<a id='download_csv' href='#'><i class='fa fa-file'></i>Open csv</a>");
+      $("div#stanza_buttons").append("<a id='download_csv' href='#'><i class='fa fa-file'></i> CSV</a>");
 
       var csv = '';
       var tables = $('table  tbody');
@@ -54,7 +54,7 @@ FS.register_helper :download_json do
   <<-HTML.strip_heredoc.html_safe
     <script>$(function() {
       #{init_download_script}
-      $("div#stanza_buttons").append("<a id='download_json' href='#'><i class='fa fa-file'></i>Open json</a>");
+      $("div#stanza_buttons").append("<a id='download_json' href='#'><i class='fa fa-file'></i> JSON</a>");
       var json_str = JSON.stringify(#{json}, "", "\t");
 
       $("#download_json").on("click",function(){
@@ -69,7 +69,7 @@ FS.register_helper :download_svg do
   <<-HTML.strip_heredoc.html_safe
     <script>$(function() {
       #{init_download_script}
-      $("div#stanza_buttons").append("<a id='download_svg' href='#'><i class='fa fa-file'></i>Open svg</a>");
+      $("div#stanza_buttons").append("<a id='download_svg' href='#'><i class='fa fa-file'></i> SVG</a>");
 
       $("#download_svg").on("click",function(){
         var svg = $("svg");
@@ -104,7 +104,7 @@ FS.register_helper :download_image do
 
     <script>$(function() {
       #{init_download_script}
-      $("div#stanza_buttons").append("<a id='download_image' href='#'><i class='fa fa-file'></i>Open image</a>");
+      $("div#stanza_buttons").append("<a id='download_image' href='#'><i class='fa fa-file'></i> IMAGE</a>");
 
       $("body").append("<div style='display: none;'><canvas id='drawarea'></canvas></div>");
 
