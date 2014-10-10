@@ -18,7 +18,7 @@ FS.register_helper :download_csv do
       $("div#stanza_buttons").append("<a id='download_csv' href='#'><i class='fa fa-file'></i> CSV</a>");
 
       var csv = '';
-      var tables = $('table  tbody');
+      var tables = $('body > table');
       if (tables.length > 0) {
         for (var tableNum = 0; tableNum < tables.length; tableNum++) {
           var table = tables[tableNum];
@@ -26,11 +26,24 @@ FS.register_helper :download_csv do
           var colLength = table.rows[0].cells.length;
           for (var i = 0; i < rowLength; i++) {
             for (var j = 0; j < colLength; j++) {
-              var textContent = table.rows[i].cells[j].textContent.replace(/^\\s+/mg, "").replace(/\\n/g, "");
+              var cell        = table.rows[i].cells[j];
+              var textContent = null;
+
+              if ($(cell).find("li")[0]) {
+                textContent = $(cell).find('li').map(function(){
+                  return this.textContent.replace(/^\\s+/mg, "").replace(/\\n/g, "");
+                }).get().join(" | ");
+              } else if ($(cell).find("table")[0]) {
+                textContent = $(cell).find('table').find('th, td').map(function(){
+                  return this.textContent.replace(/^\\s+/mg, "").replace(/\\n/g, "");
+                }).get().join(" | ");
+              } else {
+                textContent = cell.textContent.replace(/^\\s+/mg, "").replace(/\\n/g, "");
+              }
               if (j === colLength - 1) {
                 csv +=  textContent;
               } else {
-                csv +=  textContent + ',';
+                csv +=  textContent + ', ';
               }
             }
             csv += "\\r\\n";
