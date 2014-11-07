@@ -61,8 +61,7 @@ FS.register_helper :download_csv do
 end
 
 FS.register_helper :download_json do
-  this.delete(:css_uri)
-  json = this.to_json
+  json = except(:css_uri).to_json
 
   <<-HTML.strip_heredoc.html_safe
     <script>$(function() {
@@ -109,11 +108,11 @@ end
 
 FS.register_helper :download_image do
   <<-HTML.strip_heredoc.html_safe
-    <script src="/stanza/assets/canvas-toBlob.js"></script>
+    <script type="application/javascript" src="/stanza/assets/canvas-toBlob.js"></script>
 
-    <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/rgbcolor.js"></script>
-    <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/StackBlur.js"></script>
-    <script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/canvg.js"></script>
+    <script type="application/javascript" src="http://canvg.googlecode.com/svn/trunk/rgbcolor.js"></script>
+    <script type="application/javascript" src="http://canvg.googlecode.com/svn/trunk/StackBlur.js"></script>
+    <script type="application/javascript" src="http://canvg.googlecode.com/svn/trunk/canvg.js"></script>
 
     <script>$(function() {
       #{init_download_script}
