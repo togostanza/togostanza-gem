@@ -125,3 +125,46 @@ pre {
 .span10 { width: 83.3333%; }
 .span11 { width: 91.6666%; }
 .span12 { width: 100%; }
+
+body > div#stanza_buttons {
+	margin: 0 0;
+	padding: 0 0;
+}
+
+/* tool bar */
+/* line 134, ../sass/stanza.scss */
+#tool_bar {
+  margin-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  font-size: 12px;
+  line-height: 30px;
+  color: #999;
+  background-color: #fff;
+  padding-top: 2px;
+  border-top: dashed 1px #ccc;
+  /*@include box-shadow(0 1px 2px rgba(0, 0, 0, 0.2), inset 0 10px 8px -8px rgba(0, 0, 0, 0.12));*/
+}
+/* line 145, ../sass/stanza.scss */
+#tool_bar a {
+  color: #45b8cc;
+  margin-right: 1.5em;
+}
+/* line 148, ../sass/stanza.scss */
+#tool_bar a:hover {
+  color: #005580;
+}
+/* line 152, ../sass/stanza.scss */
+#tool_bar p {
+  margin-bottom: 0;
+}
+/* line 155, ../sass/stanza.scss */
+#tool_bar:before, #tool_bar:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+/* line 160, ../sass/stanza.scss */
+#tool_bar:after {
+  clear: both;
+}
