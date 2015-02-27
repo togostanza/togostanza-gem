@@ -41,12 +41,13 @@ module TogoStanza
       end
 
       def create_files
-        template 'Gemfile.erb',      "#{file_name}/Gemfile"
-        template 'gemspec.erb',      "#{file_name}/#{file_name}.gemspec"
-        template 'lib.rb.erb',       "#{file_name}/lib/#{file_name}.rb"
-        template 'stanza.rb.erb',    "#{file_name}/stanza.rb"
-        template 'template.hbs.erb', "#{file_name}/template.hbs"
-        template 'help.md.erb',      "#{file_name}/help.md"
+        template 'Gemfile.erb',       "#{file_name}/Gemfile"
+        template 'gemspec.erb',       "#{file_name}/#{file_name}.gemspec"
+        template 'lib.rb.erb',        "#{file_name}/lib/#{file_name}.rb"
+        template 'stanza.rb.erb',     "#{file_name}/stanza.rb"
+        template 'template.hbs.erb',  "#{file_name}/template.hbs"
+        template 'help.md.erb',       "#{file_name}/help.md"
+        template 'metadata.json.erb', "#{file_name}/metadata.json"
 
         create_file "#{file_name}/assets/#{stanza_id}/.keep"
       end
