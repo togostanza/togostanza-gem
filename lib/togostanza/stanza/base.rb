@@ -221,5 +221,11 @@ module TogoStanza::Stanza
 
       TogoStanza::Markdown.render(File.read(path))
     end
+
+    def metadata
+      path = File.join(root, 'metadata.json')
+
+      JSON.load(open(path))
+    end
   end
 end

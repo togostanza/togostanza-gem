@@ -60,5 +60,11 @@ module TogoStanza
         json enabled: false, count: 0, urls: []
       end
     end
+
+    get '/:id/metadata.json' do |id|
+      @stanza = Stanza.find(id).new
+
+      json @stanza.metadata
+    end
   end
 end
