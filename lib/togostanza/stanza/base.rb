@@ -225,7 +225,11 @@ module TogoStanza::Stanza
     def metadata
       path = File.join(root, 'metadata.json')
 
-      JSON.load(open(path))
+      if File.exist?(path)
+        JSON.load(open(path))
+      else
+        nil
+      end
     end
   end
 end
