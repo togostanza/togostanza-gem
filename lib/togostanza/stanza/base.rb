@@ -156,7 +156,6 @@ end
 module TogoStanza::Stanza
   autoload :ExpressionMap, 'togostanza/stanza/expression_map'
   autoload :Grouping,      'togostanza/stanza/grouping'
-  autoload :Markdown,      'togostanza/stanza/markdown'
   autoload :Querying,      'togostanza/stanza/querying'
 
   class Context < Hashie::Mash
