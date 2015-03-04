@@ -214,12 +214,6 @@ module TogoStanza::Stanza
       Tilt.new(path).render(context)
     end
 
-    def help
-      path = File.join(root, 'help.md')
-
-      TogoStanza::Markdown.render(File.read(path))
-    end
-
     def metadata
       path = File.join(root, 'metadata.json')
 

@@ -1,0 +1,35 @@
+- if stanza
+  %h1= stanza['stanza:label']
+  - if stanza['stanza:context'].present?
+    %span.badge= stanza['stanza:context']
+  - if stanza['stanza:type'].present?
+    %span.badge= stanza['stanza:type']
+  - if stanza['stanza:display'].present?
+    %span.badge= stanza['stanza:display']
+  - if stanza['stanza:license'].present?
+    %span.badge= stanza['stanza:license']
+  %p= stanza['stanza:definition']
+  %h2 Parameters:
+  %p (* = required)
+  %table.table
+    %tbody
+      %tr
+        %th Name
+        %th Description
+      - stanza['stanza:parameters'].each do |stanza_params|
+        %tr
+          %td
+            - if stanza_params["stanza:required"]
+              %span *
+            = stanza_params["stanza:key"]
+          %td
+            = "#{stanza_params["stanza:description"]} (e.g., #{stanza_params["stanza:example"]})"
+
+  %h2 Sample:
+  %pre
+    %code= stanza['stanza:usage']
+  %p
+    The above <code>#{'<div>'}</code> will automatically embed the following Stanza in your HTML page.
+  != stanza['stanza:usage']
+- else
+  Work in progress .
