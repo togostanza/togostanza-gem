@@ -26,9 +26,12 @@ module TogoStanza
     end
 
     get '/metadata.json' do
-      metadata = Stanza.all.map {|stanza|
-        stanza.new.metadata
-      }.compact
+      metadata = {
+        "@context" => {
+          stanza: "http://togostanza.org/resource/stanza#"
+        },
+        "stanza:stanzas" => Stanza.all.map {|stanza| stanza.new.metadata }.compact
+      }
 
       json metadata
     end
