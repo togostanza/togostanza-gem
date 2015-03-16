@@ -25,6 +25,17 @@ module TogoStanza
       haml :index
     end
 
+    get '/metadata.json' do
+      metadata = {
+        "@context" => {
+          stanza: "http://togostanza.org/resource/stanza#"
+        },
+        "stanza:stanzas" => Stanza.all.map {|stanza| stanza.new.metadata }.compact
+      }
+
+      json metadata
+    end
+
     get '/:id.json' do |id|
       json Stanza.find(id).new(params).context
     end

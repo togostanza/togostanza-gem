@@ -1,11 +1,8 @@
 {
-  "@context": {
-    "stanza": "http://togostanza.org/resource/stanza#"
-  },
   "@id": "http://togogenome.org/stanza/foo",
   "stanza:label": "Foo Stanza",
   "stanza:definition": "This is Foo Stanza.",
-  "stanza:parameters": [
+  "stanza:parameter": [
     { "stanza:key": "name",
       "stanza:example": "alice",
       "stanza:description": "Name",
@@ -13,13 +10,15 @@
     }
   ],
   "stanza:usage": "<div data-stanza=\"http://togogenome.org/stanza/foo\" data-stanza-name=\"alice\"></div>",
-  "stanza:type": "stanza:Stanza",
-  "stanza:context": "",
-  "stanza:display": "",
-  "stanza:provider": "provider of this stanza",
+  "stanza:type": "Stanza",
+  "stanza:context": "Gene",
+  "stanza:display": "Table",
+  "stanza:provider": "DBCLS",
   "stanza:license": "CC-BY",
   "stanza:author": "author name",
   "stanza:address": "name@example.org",
+  "stanza:contributor": [ "Taro Stanza", "Hanako Stanza" ],
+  "stanza:version": "1",
   "stanza:created": "2015-02-27",
   "stanza:updated": "2015-02-27"
 }
