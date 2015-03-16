@@ -12,8 +12,8 @@ describe 'Metadata' do
     it 'should return metadata as JSON' do
       json = JSON.parse(page.body)
 
-      json.class.should eq(Array)
-      json.first.should include('stanza:label' => 'Foo Stanza')
+      json["stanza:stanzas"].class.should eq(Array)
+      json["stanza:stanzas"].first.should include('stanza:label' => 'Foo Stanza')
     end
   end
 
