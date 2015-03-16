@@ -16,7 +16,7 @@
       %tr
         %th Name
         %th Description
-      - stanza['stanza:parameters'].each do |stanza_params|
+      - stanza['stanza:parameter'].each do |stanza_params|
         %tr
           %td
             - if stanza_params["stanza:required"]
