@@ -182,7 +182,7 @@ module TogoStanza
     end
 
     class Stanza < Thor
-      register NameModifier, 'modify', 'modify NAME1 NAME2', 'Modify a name of stnza'
+      register NameModifier, 'modify', 'modify OLD_NAME NEW_NAME', 'Modify a name of stanza'
     end
 
     class Root <Thor
@@ -190,7 +190,7 @@ module TogoStanza
     end
 
     class Root <Thor
-        register MailRegister, 'mail' , 'mail NAME' , 'register your mail'
+        register MailRegister, 'mail' , 'mail ADDRESS' , 'register your mail'
     end
 
     class Root < Thor
