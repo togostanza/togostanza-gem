@@ -95,9 +95,9 @@ module TogoStanza
         if File.exist?("#{files_name(name1_chopped)}/metadata.json") == false then
           template 'metadata.json.erb', "#{file_name}/metadata.json"
         end
-        gsub_file("#{files_name(name1_chopped)}/metadata.json", stanzas_id(name1_chopped), stanzas_id(name2_chopped))
-        gsub_file("#{files_name(name1_chopped)}/stanza.rb", classes_name(name1_chopped), classes_name(name2_chopped))
-        gsub_file("#{files_name(name1_chopped)}/template.hbs", titles(name1_chopped), titles(name2_chopped))
+        gsub_file("#{files_name(name1_chopped)}/metadata.json", "#{stanzas_id(name1_chopped)}", "#{stanzas_id(name2_chopped)}")
+        gsub_file("#{files_name(name1_chopped)}/stanza.rb", "#{classes_name(name1_chopped)}", "#{classes_name(name2_chopped)}")
+        gsub_file("#{files_name(name1_chopped)}/template.hbs", "#{titles(name1_chopped)}", "#{titles(name2_chopped)}")
         gsub_file("#{files_name(name1_chopped)}/template.hbs", "assets/#{stanzas_id(name1_chopped)}","assets/#{stanzas_id(name2_chopped)}")
         gsub_file("#{files_name(name1_chopped)}/template.hbs", "#{stanzas_id(name1_chopped)}/resources", "#{stanzas_id(name2_chopped)}/resources")
         gsub_file("Gemfile", /\'#{files_name(name1_chopped)}\'/, "\'#{files_name(name2_chopped)}\'")
