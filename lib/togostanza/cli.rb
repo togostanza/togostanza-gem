@@ -123,7 +123,8 @@ module TogoStanza
       end
 
       def stanza_id
-        name1.underscore.sub(/_stanza$/, '')
+        name1_chopped = chop_slash(name1)
+        name1_chopped.underscore.sub(/_stanza$/, '')
       end
 
       def file_name
