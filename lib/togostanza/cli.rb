@@ -100,12 +100,16 @@ module TogoStanza
         gsub_file("#{files_name(name1_chopped)}/template.hbs", titles(name1_chopped), titles(name2_chopped))
         gsub_file("#{files_name(name1_chopped)}/template.hbs", "assets/#{stanzas_id(name1_chopped)}","assets/#{stanzas_id(name2_chopped)}")
         gsub_file("#{files_name(name1_chopped)}/template.hbs", "#{stanzas_id(name1_chopped)}/resources", "#{stanzas_id(name2_chopped)}/resources")
-        gsub_file("Gemfile", "#{files_name(name1_chopped)}", "#{files_name(name2_chopped)}")
+        gsub_file("Gemfile", /\'#{files_name(name1_chopped)}\'/, "\'#{files_name(name2_chopped)}\'")
+        gsub_file("Gemfile", /\'\.\/#{files_name(name1_chopped)}\'/, "\'\.\/#{files_name(name2_chopped)}\'")
       end
 
       def rename_directory
         name1_chopped = chop_slash(name1)
         name2_chopped = chop_slash(name2)
+        if File.exist?("#{files_name(name1_chopped)}/assets/#{stanzas_id(name1_chopped)}") == false then
+          Dir.mkdir("#{files_name(name1_chopped)}/assets/#{stanzas_id(name1_chopped)}")
+        end
         File.rename("#{files_name(name1_chopped)}/assets/#{stanzas_id(name1_chopped)}", "#{files_name(name1_chopped)}/assets/#{stanzas_id(name2_chopped)}")
         File.rename("#{files_name(name1_chopped)}/lib/#{files_name(name1_chopped)}.rb", "#{files_name(name1_chopped)}/lib/#{files_name(name2_chopped)}.rb")
         File.rename("#{files_name(name1_chopped)}/#{files_name(name1_chopped)}.gemspec", "#{files_name(name1_chopped)}/#{files_name(name2_chopped)}.gemspec")
