@@ -56,22 +56,6 @@ module TogoStanza
       render :html, @stanza.help, layout_engine: :haml
     end
 
-    get '/:id/text_search' do |id|
-      @stanza    = Stanza.find(id).new
-      stanza_uri = request.env['REQUEST_URI'].gsub(/\/text_search.*/, '')
-
-      begin
-        identifiers = @stanza.text_search(params[:q]).map {|param_hash|
-          parameters = Rack::Utils.build_query(param_hash)
-          "#{stanza_uri}?#{parameters}"
-        }
-
-        json enabled: true, count: identifiers.size, urls: identifiers
-      rescue NoSearchDeclarationError
-        json enabled: false, count: 0, urls: []
-      end
-    end
-
     get '/:id/metadata.json' do |id|
       @stanza = Stanza.find(id).new
 
