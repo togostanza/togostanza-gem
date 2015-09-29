@@ -158,7 +158,6 @@ module TogoStanza::Stanza
   autoload :Grouping,      'togostanza/stanza/grouping'
   autoload :Markdown,      'togostanza/stanza/markdown'
   autoload :Querying,      'togostanza/stanza/querying'
-  autoload :TextSearch,    'togostanza/stanza/text_search'
 
   class Context < Hashie::Mash
     def respond_to_missing?(*)
@@ -171,7 +170,6 @@ module TogoStanza::Stanza
     extend ExpressionMap::Macro
     include Querying
     include Grouping
-    include TextSearch
 
     define_expression_map :properties
     define_expression_map :resources
