@@ -1,7 +1,7 @@
 require 'sinatra/base'
 require 'sinatra/json'
 require 'sinatra/reloader'
-require 'haml'
+require 'tilt/haml'
 
 module TogoStanza
   class Application < Sinatra::Base
