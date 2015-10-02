@@ -8,6 +8,6 @@ describe 'Help' do
 
   it 'should display BarStanza help' do
     visit '/bar/help'
-    page.should have_css('h1', text: 'Bar')
+    page.should have_text('Work in progress')
   end
 end

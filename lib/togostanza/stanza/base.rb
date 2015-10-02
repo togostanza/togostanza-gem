@@ -156,7 +156,6 @@ end
 module TogoStanza::Stanza
   autoload :ExpressionMap, 'togostanza/stanza/expression_map'
   autoload :Grouping,      'togostanza/stanza/grouping'
-  autoload :Markdown,      'togostanza/stanza/markdown'
   autoload :Querying,      'togostanza/stanza/querying'
 
   class Context < Hashie::Mash
@@ -212,12 +211,6 @@ module TogoStanza::Stanza
       path = File.join(root, 'template.hbs')
 
       Tilt.new(path).render(context)
-    end
-
-    def help
-      path = File.join(root, 'help.md')
-
-      TogoStanza::Markdown.render(File.read(path))
     end
 
     def metadata

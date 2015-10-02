@@ -1,7 +1,7 @@
 require 'sinatra/base'
 require 'sinatra/json'
 require 'sinatra/reloader'
-require 'haml'
+require 'tilt/haml'
 
 module TogoStanza
   class Application < Sinatra::Base
@@ -51,9 +51,9 @@ module TogoStanza
     end
 
     get '/:id/help' do |id|
-      @stanza = Stanza.find(id).new
+      stanza = Stanza.find(id).new
 
-      render :html, @stanza.help, layout_engine: :haml
+      haml :help, locals: {stanza: stanza.metadata}
     end
 
     get '/:id/metadata.json' do |id|
