@@ -103,6 +103,10 @@ module TogoStanza
         gsub_file("Gemfile", "gem '#{file_name}', path: './#{file_name}'\n", "")
       end
 
+      def prune_gem_lock
+        run "bundle install"
+      end
+
       private
 
       def chop_slash
