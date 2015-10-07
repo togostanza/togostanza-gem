@@ -74,6 +74,66 @@ module TogoStanza
       end
     end
 
+    class StanzaRemover < Thor::Group
+      include Thor::Actions
+      include Thor::Shell
+
+      argument :name, type: :string
+
+      def check_input
+        input = yes?("Do you want to remove #{file_name} [y] ?")
+        if input == false then
+          say("This operation is canceled")
+          exit
+        end
+      end
+
+      def check_exist
+        if File.exist?("#{file_name}") == false then
+          say("This provider doesn't have #{file_name}")
+          exit
+        end
+      end
+
+      def remove_files
+        remove_file("#{file_name}")
+      end
+
+      def prune_gem
+        gsub_file("Gemfile", "gem '#{file_name}', path: './#{file_name}'\n", "")
+      end
+
+      def prune_gem_lock
+        run "bundle install"
+      end
+
+      private
+
+      def chop_slash
+        if name[-1] == '/'
+          name.chop
+        else
+          name
+        end
+      end
+
+      def stanza_id
+        chop_slash.underscore.sub(/_stanza$/, '')
+      end
+
+      def file_name
+        stanza_id + '_stanza'
+      end
+
+      def class_name
+        file_name.classify
+      end
+
+      def title
+        stanza_id.titleize
+      end 
+    end
+
     class NameModifier < Thor::Group
       include Thor::Actions
 
@@ -192,6 +252,10 @@ module TogoStanza
 
     class Stanza < Thor
       register NameModifier, 'modify', 'modify OLD_NAME NEW_NAME', 'Modify a name of stanza'
+    end
+
+    class Stanza < Thor
+      register StanzaRemover, 'remove', 'remove NAME', 'Remove the stanza'
     end
 
     class Root < Thor
