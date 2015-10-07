@@ -140,8 +140,6 @@ module TogoStanza
         name1_chopped = chop_slash(name1)
         name2_chopped = chop_slash(name2)
 
-        gsub_file("#{files_name(name1_chopped)}/help.md", titles(name1_chopped), titles(name2_chopped))
-        gsub_file("#{files_name(name1_chopped)}/help.md", stanzas_id(name1_chopped), stanzas_id(name2_chopped))
         gsub_file("#{files_name(name1_chopped)}/#{files_name(name1_chopped)}.gemspec", files_name(name1_chopped), files_name(name2_chopped))
         gsub_file("#{files_name(name1_chopped)}/lib/#{files_name(name1_chopped)}.rb", classes_name(name1_chopped), classes_name(name2_chopped))
 
