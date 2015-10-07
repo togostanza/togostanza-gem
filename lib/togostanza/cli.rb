@@ -82,14 +82,14 @@ module TogoStanza
 
       def check_input
         input = yes?("Do you want to remove #{file_name} [y] ?")
-        if input == false then
+        unless input
           say("This operation is canceled")
           exit
         end
       end
 
       def check_exist
-        if File.exist?("#{file_name}") == false then
+        unless File.exist?("#{file_name}")
           say("This provider doesn't have #{file_name}")
           exit
         end
@@ -124,14 +124,6 @@ module TogoStanza
       def file_name
         stanza_id + '_stanza'
       end
-
-      def class_name
-        file_name.classify
-      end
-
-      def title
-        stanza_id.titleize
-      end 
     end
 
     class NameModifier < Thor::Group
@@ -148,13 +140,11 @@ module TogoStanza
         name1_chopped = chop_slash(name1)
         name2_chopped = chop_slash(name2)
 
-        gsub_file("#{files_name(name1_chopped)}/help.md", titles(name1_chopped), titles(name2_chopped))
-        gsub_file("#{files_name(name1_chopped)}/help.md", stanzas_id(name1_chopped), stanzas_id(name2_chopped))
         gsub_file("#{files_name(name1_chopped)}/#{files_name(name1_chopped)}.gemspec", files_name(name1_chopped), files_name(name2_chopped))
         gsub_file("#{files_name(name1_chopped)}/lib/#{files_name(name1_chopped)}.rb", classes_name(name1_chopped), classes_name(name2_chopped))
 
         unless File.exist?("#{files_name(name1_chopped)}/metadata.json")
-          template 'metadata.json.erb', "#{file_name}/metadata.json"
+          template 'metadata.json.erb', "#{files_name(name1_chopped)}/metadata.json"
         end
 
         gsub_file("#{files_name(name1_chopped)}/metadata.json", stanzas_id(name1_chopped), stanzas_id(name2_chopped))
@@ -188,15 +178,6 @@ module TogoStanza
         else
           name
         end
-      end
-
-      def stanza_id
-        name1_chopped = chop_slash(name1)
-        name1_chopped.underscore.sub(/_stanza$/, '')
-      end
-
-      def file_name
-        stanza_id + '_stanza'
       end
 
       def stanzas_id(name)
