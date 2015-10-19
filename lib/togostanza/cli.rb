@@ -207,7 +207,6 @@ module TogoStanza
       end
 
       def replace_author
-        gsub_file("#{template_dir}/gemspec.erb", /spec.authors\s*=\s\[\'.*\'\]/, "spec.authors       = ['#{name}']")
         gsub_file("#{template_dir}/metadata.json.erb", /author":\s".*"/, "author\": \"#{name}\"")
       end
     end
@@ -222,7 +221,6 @@ module TogoStanza
       end
 
       def replace_author
-        gsub_file("#{template_dir}/gemspec.erb", /spec.email\s*=\s\[\'.*\'\]/, "spec.email         = ['#{addr}']")
         gsub_file("#{template_dir}/metadata.json.erb", /address":\s".*"/, "address\": \"#{addr}\"")
       end
     end
