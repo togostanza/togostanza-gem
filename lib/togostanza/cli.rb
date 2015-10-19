@@ -220,7 +220,7 @@ module TogoStanza
         File.expand_path('../../../templates/stanza', __FILE__)
       end
 
-      def replace_author
+      def replace_address
         gsub_file("#{template_dir}/metadata.json.erb", /address":\s".*"/, "address\": \"#{addr}\"")
       end
     end
