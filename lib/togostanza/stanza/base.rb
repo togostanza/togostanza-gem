@@ -213,13 +213,39 @@ module TogoStanza::Stanza
       Tilt.new(path).render(context)
     end
 
-    def metadata
+    def metadata(server_url)
       path = File.join(root, 'metadata.json')
 
       if File.exist?(path)
-        JSON.load(open(path))
+        orig = JSON.load(open(path))
+        stanza_uri = "#{server_url}/#{orig['id']}"
+
+        usage_attrs = orig['parameter'].map {|hash|
+          "#{hash['key']}=\"#{hash['example']}\""
+        }.push("data-stanza=\"#{stanza_uri}\"").join(' ')
+
+        append_prefix_to_hash_keys(orig.merge(usage: "<div #{usage_attrs}></div>"), 'stanza').merge('@id' => stanza_uri)
       else
         nil
+      end
+    end
+
+    private
+
+    def append_prefix_to_hash_keys(hash, prefix)
+      hash.each_with_object({}) do |(key, value), new_hash|
+        new_hash["#{prefix}:#{key}"] = expand_values(value, prefix)
+      end
+    end
+
+    def expand_values(value, prefix)
+      case value
+      when Hash
+        append_prefix_to_hash_keys(value, prefix)
+      when Array
+        value.map {|v| expand_values(v, prefix) }
+      else
+        value
       end
     end
   end

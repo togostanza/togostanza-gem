@@ -21,6 +21,10 @@ module TogoStanza
       end
     end
 
+    before do
+      @server_url = request.url.gsub(request.path_info, '')
+    end
+
     get '/' do
       haml :index
     end
@@ -30,7 +34,7 @@ module TogoStanza
         "@context" => {
           stanza: "http://togostanza.org/resource/stanza#"
         },
-        "stanza:stanzas" => Stanza.all.map {|stanza| stanza.new.metadata }.compact
+        "stanza:stanzas" => Stanza.all.map {|stanza| stanza.new.metadata(@server_url) }.compact
       }
 
       json metadata
@@ -53,13 +57,13 @@ module TogoStanza
     get '/:id/help' do |id|
       stanza = Stanza.find(id).new
 
-      haml :help, locals: {stanza: stanza.metadata}
+      haml :help, locals: {stanza: stanza.metadata(@server_url)}
     end
 
     get '/:id/metadata.json' do |id|
       @stanza = Stanza.find(id).new
 
-      json @stanza.metadata
+      json @stanza.metadata(@server_url)
     end
   end
 end

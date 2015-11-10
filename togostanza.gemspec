@@ -27,12 +27,12 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'sprockets', '~> 3.4'
   spec.add_runtime_dependency 'thor', '~> 0.19'
 
-  spec.add_development_dependency 'appraisal', '~> 0'
-  spec.add_development_dependency 'bundler', '~> 0'
-  spec.add_development_dependency 'capybara', '~> 0'
-  spec.add_development_dependency 'rake', '~> 0'
-  spec.add_development_dependency 'rspec', '~> 0'
-  spec.add_development_dependency 'rspec-its', '~> 0'
+  spec.add_development_dependency 'appraisal', '~> 0.5'
+  spec.add_development_dependency 'bundler', '~> 1.10'
+  spec.add_development_dependency 'capybara', '~> 2.2'
+  spec.add_development_dependency 'rake', '~> 0.9'
+  spec.add_development_dependency 'rspec', '~> 3.3'
+  spec.add_development_dependency 'rspec-its', '~> 1.2'
 
   spec.required_ruby_version = '>= 1.9.3'
 end
