@@ -1,24 +1,23 @@
 {
-  "@id": "http://togogenome.org/stanza/foo",
-  "stanza:label": "Foo Stanza",
-  "stanza:definition": "This is Foo Stanza.",
-  "stanza:parameter": [
-    { "stanza:key": "name",
-      "stanza:example": "alice",
-      "stanza:description": "Name",
-      "stanza:required": true
+  "id": "foo",
+  "label": "Foo Stanza",
+  "definition": "This is Foo Stanza.",
+  "parameter": [
+    { "key": "name",
+      "example": "alice",
+      "description": "Name",
+      "required": true
     }
   ],
-  "stanza:usage": "<div data-stanza=\"http://togogenome.org/stanza/foo\" data-stanza-name=\"alice\"></div>",
-  "stanza:type": "Stanza",
-  "stanza:context": "Gene",
-  "stanza:display": "Table",
-  "stanza:provider": "DBCLS",
-  "stanza:license": "CC-BY",
-  "stanza:author": "author name",
-  "stanza:address": "name@example.org",
-  "stanza:contributor": [ "Taro Stanza", "Hanako Stanza" ],
-  "stanza:version": "1",
-  "stanza:created": "2015-02-27",
-  "stanza:updated": "2015-02-27"
+  "type": "Stanza",
+  "context": "Gene",
+  "display": "Table",
+  "provider": "DBCLS",
+  "license": "CC-BY",
+  "author": "author name",
+  "address": "name@example.org",
+  "contributor": [ "Taro Stanza", "Hanako Stanza" ],
+  "version": "1",
+  "created": "2015-02-27",
+  "updated": "2015-02-27"
 }

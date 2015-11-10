@@ -26,6 +26,7 @@ describe 'Metadata' do
       json = JSON.parse(page.body)
 
       json.should include('stanza:label' => 'Foo Stanza')
+      json.should include('@id' => "http://www.example.com/foo")
     end
   end
 end
