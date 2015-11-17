@@ -3,9 +3,7 @@ require 'sparql/client'
 module TogoStanza::Stanza
   module Querying
     MAPPINGS = {
-      togogenome: 'http://ep.dbcls.jp/sparql7',
-      uniprot:    'http://ep.dbcls.jp/sparql7',
-      go:         'http://ep.dbcls.jp/sparql7'
+      togogenome: 'http://togogenome.org/sparql'
     }
 
     def query(endpoint, sparql)
