@@ -48,6 +48,7 @@ module TogoStanza
         template 'template.hbs.erb',  "#{file_name}/template.hbs"
         template 'metadata.json.erb', "#{file_name}/metadata.json"
 
+        create_file "#{file_name}/sparql/.keep"
         create_file "#{file_name}/assets/#{stanza_id}/.keep"
       end
 
