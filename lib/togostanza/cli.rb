@@ -219,11 +219,10 @@ module TogoStanza
       end
 
       def replace_description
-        unless File.read("#{file_name}/#{file_name}.gemspec").include?("require 'json'")
-          insert_into_file("#{file_name}/#{file_name}.gemspec", "\nrequire 'json'\n", :after=>"$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)\n")
-          insert_into_file("#{file_name}/#{file_name}.gemspec", "metadata = open('./metadata.json') do |io|\n", :after=>"\nrequire 'json'\n")
-          insert_into_file("#{file_name}/#{file_name}.gemspec", "  JSON.load(io)\n", :after=>"metadata = open('./metadata.json') do |io|\n")
-          insert_into_file("#{file_name}/#{file_name}.gemspec", "end\n", :after=>"  JSON.load(io)\n")
+        unless File.read("#{file_name}/#{file_name}.gemspec").include?("require\s'json'")
+          insert_into_file("#{file_name}/#{file_name}.gemspec", "\nrequire\s'json'\n", :after=>"$LOAD_PATH.unshift(lib)\sunless\s$LOAD_PATH.include?(lib)\n")
+          insert_into_file("#{file_name}/#{file_name}.gemspec", "metadata\s=\sopen('./metadata.json')\sdo\s|io|\n", :after=>"\nrequire\s'json'\n")
+          insert_into_file("#{file_name}/#{file_name}.gemspec", "\s\sJSON.load\(io\)\nend\n", :after=>"metadata\s=\sopen('./metadata.json')\sdo\s|io|\n")
         end
         gsub_file("#{file_name}/#{file_name}.gemspec", /spec\.authors.*\n/, "spec.authors       = Array(metadata['author'])\n")
         gsub_file("#{file_name}/#{file_name}.gemspec", /spec\.email.*\n/, "spec.email         = Array(metadata['address'])\n")
