@@ -15,7 +15,7 @@ module TogoStanza::Stanza
         text_or_filename = Tilt.new(path).render(data)
       end
 
-      client = SPARQL::Client.new(MAPPINGS[endpoint] || endpoint)
+      client = SPARQL::Client.new(MAPPINGS[endpoint] || endpoint, :method => "get")
 
       #Rails.logger.debug "SPARQL QUERY: \n#{sparql}"
 
