@@ -140,7 +140,6 @@ module TogoStanza
       def replace_description
         name1_chopped = chop_slash(name1)
         name2_chopped = chop_slash(name2)
-
         gsub_file("#{files_name(name1_chopped)}/#{files_name(name1_chopped)}.gemspec", files_name(name1_chopped), files_name(name2_chopped))
         gsub_file("#{files_name(name1_chopped)}/lib/#{files_name(name1_chopped)}.rb", classes_name(name1_chopped), classes_name(name2_chopped))
 
@@ -198,6 +197,59 @@ module TogoStanza
       end
     end
 
+    class GenspecUpdater < Thor::Group
+      include Thor::Actions
+      include Thor::Shell
+
+      argument :name, type: :string
+
+      def self.source_root
+        File.expand_path('../../../templates/stanza', __FILE__)
+      end
+
+      def check_exist
+        unless File.exist?("#{file_name}")
+          say("This provider doesn't have #{file_name}")
+          exit
+        end
+        unless File.exist?("#{file_name}/metadata.json")
+          template 'metadata.json.erb', "#{file_name}/metadata.json"
+          say("metadata.json has just made.")
+        end
+      end
+
+      def replace_description
+        unless File.read("#{file_name}/#{file_name}.gemspec").include?("require\s'json'")
+          insert_into_file("#{file_name}/#{file_name}.gemspec", "\nrequire\s'json'\n", :after=>"$LOAD_PATH.unshift(lib)\sunless\s$LOAD_PATH.include?(lib)\n")
+          insert_into_file("#{file_name}/#{file_name}.gemspec", "metadata\s=\sopen('./metadata.json')\sdo\s|io|\n", :after=>"\nrequire\s'json'\n")
+          insert_into_file("#{file_name}/#{file_name}.gemspec", "\s\sJSON.load\(io\)\nend\n", :after=>"metadata\s=\sopen('./metadata.json')\sdo\s|io|\n")
+        end
+        gsub_file("#{file_name}/#{file_name}.gemspec", /spec\.authors.*\n/, "spec.authors       = Array(metadata['author'])\n")
+        gsub_file("#{file_name}/#{file_name}.gemspec", /spec\.email.*\n/, "spec.email         = Array(metadata['address'])\n")
+        gsub_file("#{file_name}/#{file_name}.gemspec", /spec\.summary.*\n/, "spec.summary       = metadata['label']\n")
+        gsub_file("#{file_name}/#{file_name}.gemspec", /spec\.description.*\n/, "spec.description   = metadata['definition']\n")
+        gsub_file("#{file_name}/#{file_name}.gemspec", /spec\.license.*\n/, "spec.license       = metadata['license']\n")
+      end
+
+      private
+
+      def chop_slash
+        if name[-1] == '/'
+          name.chop
+        else
+          name
+        end
+      end
+
+      def stanza_id
+        chop_slash.underscore.sub(/_stanza$/, '')
+      end
+
+      def file_name
+        stanza_id + '_stanza'
+      end
+    end
+
     class NameRegister < Thor::Group
       include Thor::Actions
 
@@ -236,6 +288,10 @@ module TogoStanza
 
     class Stanza < Thor
       register StanzaRemover, 'remove', 'remove NAME', 'Remove the stanza'
+    end
+
+    class Stanza < Thor
+      register GenspecUpdater, 'genspec_update', 'genspec_update NAME', 'Update genspec format for togostanza ver 2.0.0'
     end
 
     class Root < Thor

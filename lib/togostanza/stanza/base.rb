@@ -221,6 +221,9 @@ module TogoStanza::Stanza
         stanza_uri = "#{server_url}/#{orig['id']}"
 
         usage_attrs = orig['parameter'].map {|hash|
+          unless hash['key'].start_with?("data-stanza-") then
+            hash['key'] = "data-stanza-" <<  hash['key']
+          end
           "#{hash['key']}=\"#{hash['example']}\""
         }.push("data-stanza=\"#{stanza_uri}\"").join(' ')
 
