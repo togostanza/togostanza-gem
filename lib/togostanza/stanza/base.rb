@@ -15,7 +15,7 @@ FS.register_helper :download_csv do
   <<-HTML.strip_heredoc.html_safe
     <script>$(function() {
       #{init_download_script}
-      $("div#stanza_buttons").append("<a id='download_csv' href='#'><i class='fa fa-file-o'></i> CSV</a>");
+      $("div#stanza_buttons").append("<a id='download_csv' download='stanza.csv' href='#'><i class='fa fa-file-o'></i> CSV</a>");
 
       var csv = '';
       var tables = $('body > table');
@@ -51,10 +51,9 @@ FS.register_helper :download_csv do
         }
       }
 
-      $("#download_csv").on("click",function(){
-        window.open('data:text/plain;' + (window.btoa?'base64,'+btoa(csv):csv));
+      document.querySelector('#download_csv').addEventListener('click', (e) => {
+        e.target.href = 'data:text/plain;charset=UTF-8' + (window.btoa ? ';base64,' + btoa(csv) : ',' + csv);
       });
-
     });
     </script>
   HTML
@@ -66,11 +65,11 @@ FS.register_helper :download_json do
   <<-HTML.strip_heredoc.html_safe
     <script>$(function() {
       #{init_download_script}
-      $("div#stanza_buttons").append("<a id='download_json' href='#'><i class='fa fa-file-o'></i> JSON</a>");
-      var json_str = JSON.stringify(#{json}, "", "\t");
+      $("div#stanza_buttons").append("<a id='download_json' download='stanza.json' href='#'><i class='fa fa-file-o'></i> JSON</a>");
+      var json_str = JSON.stringify(#{json}, null, '\t');
 
-      $("#download_json").on("click",function(){
-        window.open('data:application/json;' + (window.btoa?'base64,'+btoa(json_str):json_str));
+      document.querySelector('#download_json').addEventListener('click', (e) => {
+        e.target.href = 'data:application/json;charset=UTF-8' + (window.btoa ? ';base64,' + btoa(json_str) : ',' + json_str);
       });
     });
     </script>
@@ -81,9 +80,9 @@ FS.register_helper :download_svg do
   <<-HTML.strip_heredoc.html_safe
     <script>$(function() {
       #{init_download_script}
-      $("div#stanza_buttons").append("<a id='download_svg' href='#'><i class='fa fa-file-o'></i> SVG</a>");
+      $("div#stanza_buttons").append("<a id='download_svg' download='stanza.svg' href='#'><i class='fa fa-file-o'></i> SVG</a>");
 
-      $("#download_svg").on("click",function(){
+      document.querySelector('#download_svg').addEventListener('click', (e) => {
         var svg = $("svg");
         if (svg[0]) {
           if (!svg.attr("xmlns")) {
@@ -94,13 +93,12 @@ FS.register_helper :download_svg do
           }
 
           var svgText = svg.wrap('<div>').parent().html();
-          window.open('data:image/svg+xml;' + (window.btoa?'base64,'+btoa(svgText):svgText));
+          e.target.href = 'data:image/svg+xml' + (window.btoa ? ';base64,' + btoa(svgText) : ',' + svgText);
         } else {
           // TODO...
           console.log("Can't open svg file");
         }
       });
-
     });
     </script>
   HTML
@@ -116,30 +114,29 @@ FS.register_helper :download_image do
 
     <script>$(function() {
       #{init_download_script}
-      $("div#stanza_buttons").append("<a id='download_image' href='#'><i class='fa fa-file-o'></i> IMAGE</a>");
+      $("div#stanza_buttons").append("<a id='download_image' download='stanza.png' href='#'><i class='fa fa-file-o'></i> IMAGE</a>");
 
       $("body").append("<div style='display: none;'><canvas id='drawarea'></canvas></div>");
 
-      $("#download_image").on("click",function(){
+      document.querySelector('#download_image').addEventListener('click', (e) => {
         var svg = $("svg");
         if (svg[0]) {
           var svgText = svg.wrap('<div>').parent().html();
-          canvg('drawarea', svgText, {renderCallback: function(){
+          canvg('drawarea', svgText, { 
+            renderCallback: function() {
               var canvas = $("#drawarea")[0];
 
               canvas.toBlob(function(blob) {
                 var blob_url = window.URL.createObjectURL(blob);
-                window.open(blob_url);
+                e.target.href = blob_url;
               }, "image/png");
             }
           });
-
         } else {
           // TODO...
           console.log("Can't open image file");
         }
       });
-
     });
     </script>
   HTML
