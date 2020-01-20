@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Rendering' do
+describe 'Rendering', type: :feature do
   it 'should render FooStanza correctly' do
     visit '/foo'
     page.should have_content('hello from foo')

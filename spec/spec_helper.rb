@@ -1,7 +1,7 @@
 ENV['RACK_ENV'] ||= 'test'
 
 require 'rspec/its'
-require 'capybara'
+require 'capybara/rspec'
 
 require_relative 'dummy/app'
 
@@ -14,8 +14,6 @@ RSpec.configure do |config|
   config.filter_run :focus
 
   config.order = 'random'
-
-  config.include Capybara::DSL
 end
 
 Capybara.app = DummyApp

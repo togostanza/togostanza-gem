@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Listing' do
+describe 'Listing', type: :feature do
   before do
     visit '/'
   end

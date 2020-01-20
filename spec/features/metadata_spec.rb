@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Metadata' do
+describe 'Metadata', type: :feature do
   describe '/metadata.json' do
     before do
       # 実行順により base_spec で作られた Classオブジェクトが返って来て意図通りのテストにならないため

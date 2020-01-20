@@ -155,13 +155,6 @@ module TogoStanza::Stanza
   autoload :Grouping,      'togostanza/stanza/grouping'
   autoload :Querying,      'togostanza/stanza/querying'
 
-  class Context < Hashie::Mash
-    def respond_to_missing?(*)
-      # XXX It looks ugly, but we need use not pre-defined properties
-      true
-    end
-  end
-
   class Base
     extend ExpressionMap::Macro
     include Querying
@@ -197,7 +190,7 @@ module TogoStanza::Stanza
     attr_reader :params
 
     def context
-      Context.new(properties.resolve_all_in_parallel(self, params))
+      Hashie::Mash.new(properties.resolve_all_in_parallel(self, params))
     end
 
     def resource(name)

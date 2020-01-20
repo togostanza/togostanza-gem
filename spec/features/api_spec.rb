@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'API' do
+describe 'API', type: :feature do
   it 'should return properties as JSON' do
     visit '/foo.json?name=nsgc'
 

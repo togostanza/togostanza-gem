@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Resource' do
+describe 'Resource', type: :feature do
   before do
     visit '/foo/resources/foo_resource'
   end

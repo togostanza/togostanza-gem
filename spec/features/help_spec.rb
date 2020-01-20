@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Help' do
+describe 'Help', type: :feature do
   it 'should display FooStanza help' do
     visit '/foo/help'
     page.should have_css('h1', text: 'Foo')
