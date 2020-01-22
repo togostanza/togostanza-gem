@@ -15,11 +15,9 @@ module TogoStanza::Stanza
         text_or_filename = Tilt.new(path).render(data)
       end
 
-      client = SPARQL::Client.new(MAPPINGS[endpoint] || endpoint, :method => "get")
+      client = SPARQL::Client.new(MAPPINGS[endpoint] || endpoint, method: 'get')
 
-      #Rails.logger.debug "SPARQL QUERY: \n#{sparql}"
-
-      client.query(text_or_filename).map {|binding|
+      client.query(text_or_filename, content_type: 'application/sparql-results+json').map {|binding|
         binding.each_with_object({}) {|(name, term), hash|
           hash[name] = term.to_s
         }
