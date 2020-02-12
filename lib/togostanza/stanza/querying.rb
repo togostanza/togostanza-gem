@@ -7,7 +7,7 @@ module TogoStanza::Stanza
       togogenome: 'http://togogenome.org/sparql'
     }
 
-    def query(endpoint, text_or_filename)
+    def query(endpoint, text_or_filename, **options)
       path = File.join(root, 'sparql', text_or_filename)
 
       if File.exist?(path)
@@ -15,11 +15,9 @@ module TogoStanza::Stanza
         text_or_filename = Tilt.new(path).render(data)
       end
 
-      client = SPARQL::Client.new(MAPPINGS[endpoint] || endpoint, :method => "get")
+      client = SPARQL::Client.new(MAPPINGS[endpoint] || endpoint, method: 'get')
 
-      #Rails.logger.debug "SPARQL QUERY: \n#{sparql}"
-
-      client.query(text_or_filename).map {|binding|
+      client.query(text_or_filename, **{content_type: 'application/sparql-results+json'}.merge(options)).map {|binding|
         binding.each_with_object({}) {|(name, term), hash|
           hash[name] = term.to_s
         }
