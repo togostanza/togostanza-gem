@@ -17,11 +17,13 @@ module TogoStanza::Stanza
 
       client = SPARQL::Client.new(MAPPINGS[endpoint] || endpoint, method: 'get')
 
-      client.query(text_or_filename, **{content_type: 'application/sparql-results+json'}.merge(options)).map {|binding|
+      result = client.query(text_or_filename, **{content_type: 'application/sparql-results+json'}.merge(options)).map {|binding|
         binding.each_with_object({}) {|(name, term), hash|
           hash[name] = term.to_s
         }
       }
+      client.close
+      result
     end
   end
 end
